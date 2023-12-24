@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm1ubqa22apks"]
+
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/objects/obj_audiolibrary_2d_audio.gd" id="1_63inu"]
+
+[node name="Andromeda2dAudio" type="AudioStreamPlayer2D" groups=["AudioLibraryLocalPlayer"]]
+script = ExtResource("1_63inu")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

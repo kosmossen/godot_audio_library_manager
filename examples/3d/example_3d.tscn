@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk30puf1kyhjw"]
+
+[ext_resource type="Script" path="res://examples/3d/example_3d.gd" id="1_atlbo"]
+
+[node name="Example3d" type="Node3D"]
+script = ExtResource("1_atlbo")
+
+[node name="Listener" type="CSGBox3D" parent="."]
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Listener"]
+
+[node name="Rotator" type="CSGTorus3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.40404)
+sides = 3
+smooth_faces = false
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.886535, 0.462662, 0, -0.462662, 0.886535, 0, 2.5, 4.37457)
+fov = 128.4
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74213, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 24.0
+text = "Play 3D Audio"
+
+[connection signal="button_up" from="Control/Button" to="." method="_on_button_button_up"]

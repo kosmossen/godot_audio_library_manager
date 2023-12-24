@@ -1,0 +1,304 @@
+[gd_scene load_steps=19 format=3 uid="uid://cbkev2ph47mfe"]
+
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/panels/panel_library.gd" id="1_nnkqu"]
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/classes/cl_audiolibrary_status.gd" id="2_tckl7"]
+[ext_resource type="Texture2D" uid="uid://bbbee6iyamack" path="res://addons/audio_library_manager/res/folder.svg" id="3_7sutm"]
+[ext_resource type="PackedScene" uid="uid://mkc3wrjilqti" path="res://addons/audio_library_manager/src/windows/window_rename.tscn" id="3_18p1c"]
+[ext_resource type="Texture2D" uid="uid://m4eii25svarl" path="res://addons/audio_library_manager/res/search.svg" id="3_lxxxx"]
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/audiolibrary_optionsbutton.gd" id="3_wjxq8"]
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/audiolibrary_sampleplayerpanel.gd" id="4_xdqpu"]
+[ext_resource type="PackedScene" uid="uid://b3y1xbrtqc21t" path="res://addons/audio_library_manager/src/windows/window_info.tscn" id="7_3o8m1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuq8q"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_color = Color(0, 0, 0, 0.156863)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Resource" id="Resource_iwrbw"]
+script = ExtResource("2_tckl7")
+status_type = 3
+status_msg = "Uninitialized"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yxpt2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m2lu5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykckx"]
+content_margin_top = 5.0
+bg_color = Color(0, 0, 0, 0.156863)
+border_width_left = 10
+border_color = Color(0, 0, 0, 0.156863)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_klrh1"]
+resource_local_to_scene = true
+font_size = 14
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80bcx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_26fyu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4mcs1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5ncwg"]
+resource_local_to_scene = true
+font_size = 14
+font_color = Color(0.184314, 0.309804, 0.309804, 1)
+
+[node name="PanelBase" type="ScrollContainer" node_paths=PackedStringArray("library_name_label", "child_parent_control") groups=["AudioLibraryPanel"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xuq8q")
+script = ExtResource("1_nnkqu")
+status = SubResource("Resource_iwrbw")
+library_name_label = NodePath("Pad/Stack/PlateMargin/Plate/Titlebar/Title")
+data = {
+"SCRUNGUS": {}
+}
+child_parent_control = NodePath("Pad/Stack/LibraryFiles/LibraryFilesFrame/LibraryFilesMain")
+
+[node name="BG" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(560, 500)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0)
+
+[node name="Pad" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Stack" type="VBoxContainer" parent="Pad"]
+layout_mode = 2
+
+[node name="PlateMargin" type="MarginContainer" parent="Pad/Stack"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="Plate" type="VBoxContainer" parent="Pad/Stack/PlateMargin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Titlebar" type="HBoxContainer" parent="Pad/Stack/PlateMargin/Plate"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Reload" type="Button" parent="Pad/Stack/PlateMargin/Plate/Titlebar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.733333, 0.635294, 0.929412, 1)
+theme_override_colors/font_focus_color = Color(0.733333, 0.635294, 0.929412, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxpt2")
+text = "Reload
+"
+
+[node name="Rename" type="Button" parent="Pad/Stack/PlateMargin/Plate/Titlebar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 8.6
+theme_override_colors/font_focus_color = Color(0.870588, 0.870588, 0.870588, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m2lu5")
+shortcut_in_tooltip = false
+text = "Rename"
+
+[node name="Delete" type="Button" parent="Pad/Stack/PlateMargin/Plate/Titlebar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 8.6
+theme_override_colors/font_color = Color(0.984314, 0.694118, 0.541176, 1)
+theme_override_colors/font_focus_color = Color(0.984314, 0.694118, 0.541176, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m2lu5")
+text = "Delete
+"
+
+[node name="Title" type="Label" parent="Pad/Stack/PlateMargin/Plate/Titlebar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LIBRARY NAME"
+horizontal_alignment = 2
+text_overrun_behavior = 3
+
+[node name="Div4" type="HSeparator" parent="Pad/Stack/PlateMargin/Plate"]
+layout_mode = 2
+
+[node name="ConfigLabel" type="Label" parent="Pad/Stack/PlateMargin/Plate"]
+layout_mode = 2
+text = "CONFIGURATION"
+horizontal_alignment = 1
+
+[node name="Status" type="HBoxContainer" parent="Pad/Stack/PlateMargin/Plate"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Status" type="Label" parent="Pad/Stack/PlateMargin/Plate/Status"]
+layout_mode = 2
+text = "STATUS"
+
+[node name="StatusLabel" type="Label" parent="Pad/Stack/PlateMargin/Plate/Status"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_ykckx")
+text = "Unconfigured"
+label_settings = SubResource("LabelSettings_klrh1")
+
+[node name="Path" type="HBoxContainer" parent="Pad/Stack/PlateMargin/Plate"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="PathLabel" type="Label" parent="Pad/Stack/PlateMargin/Plate/Path"]
+layout_mode = 2
+text = "SOURCE PATH"
+
+[node name="FileDialogButton" type="Button" parent="Pad/Stack/PlateMargin/Plate/Path"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("3_7sutm")
+icon_alignment = 1
+
+[node name="PathLineEdit" type="LineEdit" parent="Pad/Stack/PlateMargin/Plate/Path"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Pick or enter a path to a source directory... (e.g. res://sounds/sfx/)"
+
+[node name="Bar" type="HBoxContainer" parent="Pad/Stack/PlateMargin/Plate"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BusLabel" type="Label" parent="Pad/Stack/PlateMargin/Plate/Bar"]
+layout_mode = 2
+text = "AUDIO BUS"
+
+[node name="BusOptionsButton" type="OptionButton" parent="Pad/Stack/PlateMargin/Plate/Bar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+item_count = 3
+selected = 0
+fit_to_longest_item = false
+popup/item_0/text = "Master"
+popup/item_0/id = 0
+popup/item_1/text = "Music"
+popup/item_1/id = 1
+popup/item_2/text = "SFX"
+popup/item_2/id = 2
+script = ExtResource("3_wjxq8")
+
+[node name="ChecksContainer" type="HBoxContainer" parent="Pad/Stack/PlateMargin/Plate"]
+layout_mode = 2
+
+[node name="ExclusiveCheckBox" type="CheckBox" parent="Pad/Stack/PlateMargin/Plate/ChecksContainer"]
+layout_mode = 2
+tooltip_text = "Only allow a single sound from this library to play at a time. Only applies to built-in global playback and not 2D/3D sounds or custom playback solutions."
+theme_override_styles/focus = SubResource("StyleBoxEmpty_80bcx")
+text = "Exclusive"
+
+[node name="Div" type="HSeparator" parent="Pad/Stack"]
+layout_mode = 2
+
+[node name="FilesLabel" type="Label" parent="Pad/Stack"]
+layout_mode = 2
+text = "LIBRARY FILES"
+horizontal_alignment = 1
+
+[node name="SamplePlayerPanel" type="HBoxContainer" parent="Pad/Stack"]
+layout_mode = 2
+theme_override_constants/separation = 15
+script = ExtResource("4_xdqpu")
+
+[node name="SamplePlayerLabel" type="Label" parent="Pad/Stack/SamplePlayerPanel"]
+layout_mode = 2
+text = "Audio Sample Player:"
+
+[node name="SamplePlayerButtonStop" type="Button" parent="Pad/Stack/SamplePlayerPanel"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_26fyu")
+disabled = true
+text = "Stop Sound"
+
+[node name="SamplePlayerLabelCurrent" type="Label" parent="Pad/Stack/SamplePlayerPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4mcs1")
+text = "NOT PLAYING"
+label_settings = SubResource("LabelSettings_5ncwg")
+
+[node name="ColorRect" type="ColorRect" parent="Pad/Stack/SamplePlayerPanel"]
+layout_mode = 2
+
+[node name="Search" type="LineEdit" parent="Pad/Stack"]
+layout_mode = 2
+placeholder_text = "Filter Entries"
+right_icon = ExtResource("3_lxxxx")
+
+[node name="Div3" type="HSeparator" parent="Pad/Stack"]
+layout_mode = 2
+
+[node name="LibraryFiles" type="ScrollContainer" parent="Pad/Stack"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LibraryFilesFrame" type="VBoxContainer" parent="Pad/Stack/LibraryFiles"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LibraryFilesMain" type="VBoxContainer" parent="Pad/Stack/LibraryFiles/LibraryFilesFrame"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="RenameWindow" parent="." instance=ExtResource("3_18p1c")]
+title = "Rename Audio Library"
+
+[node name="InfoWindow" parent="." instance=ExtResource("7_3o8m1")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Choose a library source directory"
+initial_position = 1
+size = Vector2i(392, 450)
+ok_button_text = "Select Current Folder"
+mode_overrides_title = false
+file_mode = 2
+
+[node name="DeleteDialog" type="ConfirmationDialog" parent="."]
+title = "Delete Audio Library"
+initial_position = 1
+ok_button_text = "Yes"
+dialog_text = "Are you sure you wish to delete audio library 'Library'?"
+cancel_button_text = "No"
+
+[connection signal="resized" from="." to="." method="_on_resized"]
+[connection signal="button_up" from="Pad/Stack/PlateMargin/Plate/Titlebar/Reload" to="." method="_on_reload_button_up"]
+[connection signal="button_up" from="Pad/Stack/PlateMargin/Plate/Titlebar/Rename" to="." method="_on_rename_button_up"]
+[connection signal="button_up" from="Pad/Stack/PlateMargin/Plate/Titlebar/Delete" to="." method="_on_delete_button_up"]
+[connection signal="button_up" from="Pad/Stack/PlateMargin/Plate/Path/FileDialogButton" to="." method="_on_file_dialog_button_button_up"]
+[connection signal="text_changed" from="Pad/Stack/PlateMargin/Plate/Path/PathLineEdit" to="." method="_on_path_line_edit_text_changed"]
+[connection signal="item_selected" from="Pad/Stack/PlateMargin/Plate/Bar/BusOptionsButton" to="." method="_on_bus_options_button_item_selected"]
+[connection signal="toggled" from="Pad/Stack/PlateMargin/Plate/ChecksContainer/ExclusiveCheckBox" to="." method="_on_exclusive_check_box_toggled"]
+[connection signal="button_up" from="Pad/Stack/SamplePlayerPanel/SamplePlayerButtonStop" to="." method="_on_sample_player_button_stop_button_up"]
+[connection signal="text_changed" from="Pad/Stack/Search" to="." method="_on_line_edit_text_changed"]
+[connection signal="accept_pressed" from="RenameWindow" to="." method="_on_rename_window_accept_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="close_requested" from="FileDialog" to="." method="_on_file_dialog_close_requested"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]
+[connection signal="confirmed" from="DeleteDialog" to="." method="_on_delete_dialog_confirmed"]

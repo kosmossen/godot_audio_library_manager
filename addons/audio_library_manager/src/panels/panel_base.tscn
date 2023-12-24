@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwjfocnpoqbky"]
+
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/panels/panel_base.gd" id="1_y14xd"]
+
+[node name="PanelBase" type="Control" groups=["AudioLibraryPanel"]]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_y14xd")

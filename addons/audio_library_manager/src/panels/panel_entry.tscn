@@ -1,0 +1,196 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6yc2gp7inxon"]
+
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/panels/panel_entry.gd" id="1_iqdud"]
+[ext_resource type="Texture2D" uid="uid://ceulyhupc8dti" path="res://addons/audio_library_manager/res/reload.svg" id="2_0kuf6"]
+[ext_resource type="PackedScene" uid="uid://bt47fp0sjcxrv" path="res://addons/audio_library_manager/src/windows/window_container.tscn" id="3_qofeg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uk8xl"]
+
+[node name="PanelBase" type="MarginContainer" node_paths=PackedStringArray("ui_settingscontainer", "ui_settingsbutton", "ui_volume", "ui_pitch", "ui_poly", "ui_volume_bg", "ui_filename", "ui_filetype", "ui_filesubpath", "ui_resetbutton") groups=["AudioLibraryPanel"]]
+custom_minimum_size = Vector2(100, 30)
+size_flags_horizontal = 3
+script = ExtResource("1_iqdud")
+ui_settingscontainer = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer")
+ui_settingsbutton = NodePath("VBoxContainer/HBoxContainer/SettingsButton")
+ui_volume = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/VolumeBG/VolumeSpinBox")
+ui_pitch = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PitchSpinBox")
+ui_poly = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PolySpinBox")
+ui_volume_bg = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/VolumeBG")
+ui_filename = NodePath("VBoxContainer/HBoxContainer/HBoxContainer/Filename")
+ui_filetype = NodePath("VBoxContainer/HBoxContainer/Filetype")
+ui_filesubpath = NodePath("VBoxContainer/HBoxContainer/HBoxContainer/FileSubpath")
+ui_resetbutton = NodePath("VBoxContainer/HBoxContainer/ResetButton")
+
+[node name="Darken" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.156863)
+
+[node name="Highlight" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.0392157)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Icon_L" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+expand_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="FileSubpath" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+text = "./path/"
+
+[node name="Filename" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "audio_file"
+
+[node name="Filetype" type="Label" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.392157)
+text = ".ogg"
+
+[node name="Div" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SettingsSlot" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SettingsContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SettingsSlot"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VolumeBG" type="ColorRect" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 0.105882, 0.0745098, 0.176471)
+
+[node name="VolumeLabel" type="Label" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/VolumeBG"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 54.0
+offset_bottom = 11.5
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0.4, 0, 0, 1)
+text = "vol/dB:"
+
+[node name="VolumeSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/VolumeBG"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -83.0625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+min_value = -100.0
+max_value = 24.0
+
+[node name="VolumeDiv" type="VSeparator" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PitchLabel" type="Label" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0.627451, 1)
+text = "pitch/%:"
+
+[node name="PitchSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+layout_mode = 2
+mouse_filter = 1
+min_value = 1.0
+max_value = 400.0
+value = 100.0
+
+[node name="PitchDiv" type="VSeparator" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PolyLabel" type="Label" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+layout_mode = 2
+text = "poly/n:"
+
+[node name="PolySpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+layout_mode = 2
+mouse_filter = 1
+min_value = 1.0
+max_value = 999999.0
+value = 1.0
+rounded = true
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Settings.."
+
+[node name="PolyDiv" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Play" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "Play File"
+
+[node name="Info" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_filter = 1
+text = "Info.."
+
+[node name="ResetButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uk8xl")
+icon = ExtResource("2_0kuf6")
+flat = true
+
+[node name="Separator" type="HSeparator" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+
+[node name="SettingBorrowWindow" parent="." instance=ExtResource("3_qofeg")]
+visible = false
+
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_exited"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/VolumeBG/VolumeSpinBox" to="." method="_on_setting_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PitchSpinBox" to="." method="_on_setting_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PolySpinBox" to="." method="_on_setting_changed"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/SettingsButton" to="." method="_on_settings_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/Play" to="." method="_on_play_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/Info" to="." method="_on_info_button_up"]
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_button_down"]

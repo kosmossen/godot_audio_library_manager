@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://mkc3wrjilqti"]
+
+[ext_resource type="PackedScene" uid="uid://b47esjd6eeew7" path="res://addons/audio_library_manager/src/windows/window_base.tscn" id="1_iryrb"]
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/windows/window_rename.gd" id="2_mh00w"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_fmk44"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_kf6ik"]
+events = [SubResource("InputEventKey_fmk44")]
+
+[node name="WindowBase" node_paths=PackedStringArray("initial_focus") instance=ExtResource("1_iryrb")]
+script = ExtResource("2_mh00w")
+taken_names = Array[String]([])
+max_length = 64
+initial_focus = NodePath("Panel/MarginContainer/VBoxContainer/LineEdit")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" index="0"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Query" type="Label" parent="Panel/MarginContainer/VBoxContainer" index="0"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Enter new name:"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="StatusBG" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer" index="2"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+color = Color(0, 0, 0, 0.27451)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/StatusBG" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 5
+
+[node name="Status" type="Label" parent="Panel/MarginContainer/VBoxContainer/StatusBG/MarginContainer" index="0"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "No name entered."
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" index="3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 50
+
+[node name="Accept" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+disabled = true
+shortcut = SubResource("Shortcut_kf6ik")
+shortcut_in_tooltip = false
+text = "Accept"
+
+[node name="Cancel" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="text_changed" from="Panel/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="button_up" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Accept" to="." method="_on_accept_button_up"]
+[connection signal="button_up" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]

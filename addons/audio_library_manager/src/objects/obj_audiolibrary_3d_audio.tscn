@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://j417smv6so37"]
+
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/objects/obj_audiolibrary_3d_audio.gd" id="1_egixc"]
+
+[node name="Andromeda3dAudio" type="AudioStreamPlayer3D" groups=["AudioLibraryLocalPlayer"]]
+script = ExtResource("1_egixc")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3y1xbrtqc21t"]
+
+[ext_resource type="PackedScene" uid="uid://b47esjd6eeew7" path="res://addons/audio_library_manager/src/windows/window_base.tscn" id="1_rlx1n"]
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/windows/window_info.gd" id="2_2npqk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eht4f"]
+bg_color = Color(0, 0, 0, 0.196078)
+
+[sub_resource type="LabelSettings" id="LabelSettings_146u1"]
+resource_local_to_scene = true
+font_size = 14
+font_color = Color(0.698039, 0.698039, 0.698039, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jq82g"]
+resource_local_to_scene = true
+font_size = 14
+font_color = Color(0.698039, 0.698039, 0.698039, 1)
+
+[node name="WindowBase" instance=ExtResource("1_rlx1n")]
+title = "Audio File Information"
+size = Vector2i(500, 220)
+script = ExtResource("2_2npqk")
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel" index="0"]
+layout_mode = 2
+
+[node name="Container" type="VBoxContainer" parent="Panel/CenterContainer" index="0"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="Panel/CenterContainer/Container" index="0"]
+layout_mode = 2
+text = "Audio File Information"
+horizontal_alignment = 1
+
+[node name="NameTitleLabel" type="Label" parent="Panel/CenterContainer/Container" index="1"]
+layout_mode = 2
+text = "Filename: "
+
+[node name="NameLabelContainer" type="ScrollContainer" parent="Panel/CenterContainer/Container" index="2"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eht4f")
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/CenterContainer/Container/NameLabelContainer" index="0"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Panel/CenterContainer/Container/NameLabelContainer/CenterContainer" index="0"]
+layout_mode = 2
+text = "name.ogg"
+label_settings = SubResource("LabelSettings_146u1")
+
+[node name="PathTitleLabel" type="Label" parent="Panel/CenterContainer/Container" index="3"]
+layout_mode = 2
+text = "Path:"
+
+[node name="PathLabelContainer" type="ScrollContainer" parent="Panel/CenterContainer/Container" index="4"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eht4f")
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/CenterContainer/Container/PathLabelContainer" index="0"]
+layout_mode = 2
+
+[node name="PathLabel" type="Label" parent="Panel/CenterContainer/Container/PathLabelContainer/CenterContainer" index="0"]
+layout_mode = 2
+text = "res://path/name.ogg"
+label_settings = SubResource("LabelSettings_jq82g")
+
+[node name="HBoxContainer" type="CenterContainer" parent="Panel/CenterContainer/Container" index="5"]
+layout_mode = 2
+
+[node name="OK" type="Button" parent="Panel/CenterContainer/Container/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "OK"
+
+[connection signal="button_up" from="Panel/CenterContainer/Container/HBoxContainer/OK" to="." method="_on_ok_button_up"]

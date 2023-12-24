@@ -1,0 +1,183 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1wjmdjwo8xst"]
+
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/panels/panel_primary.gd" id="1_kq38j"]
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/audiolibrary_menubar.gd" id="2_8owiv"]
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/tab_itemlist.gd" id="3_ncteu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lft5r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1so65"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yf6ag"]
+
+[node name="PanelBase" type="MarginContainer" node_paths=PackedStringArray("child_parent_control") groups=["AudioLibraryPanel"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_kq38j")
+child_parent_control = NodePath("Main/Menu/Tab")
+
+[node name="Main" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Bar" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="MenuBar" type="MenuBar" parent="Main/Bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+script = ExtResource("2_8owiv")
+
+[node name="File" type="PopupMenu" parent="Main/Bar/MenuBar"]
+title = "File"
+item_count = 5
+item_0/text = "New Library"
+item_0/id = 0
+item_1/text = "Clear Libraries.."
+item_1/id = 1
+item_2/text = ""
+item_2/id = 2
+item_2/separator = true
+item_3/text = "Import.."
+item_3/id = 3
+item_4/text = "Export.."
+item_4/id = 4
+
+[node name="Audio" type="PopupMenu" parent="Main/Bar/MenuBar"]
+item_count = 1
+item_0/text = "Stop All Sounds"
+item_0/id = 0
+
+[node name="Version" type="Label" parent="Main/Bar"]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+tooltip_text = "Godot Audio Library Manager
+Plugin by kosmossen"
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "v0.1"
+horizontal_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="Main"]
+visible = false
+layout_mode = 2
+
+[node name="Menu" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Menu"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main/Menu/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Libraries"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Main/Menu/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lft5r")
+text = "New Library"
+
+[node name="ItemList" type="ItemList" parent="Main/Menu/VBoxContainer" node_paths=PackedStringArray("target_tabcontainer")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1so65")
+item_count = 2
+item_0/text = "Music"
+item_1/text = "SFX"
+script = ExtResource("3_ncteu")
+target_tabcontainer = NodePath("../../Tab")
+
+[node name="Tab" type="TabContainer" parent="Main/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yf6ag")
+tabs_visible = false
+
+[node name="EMPTY" type="CenterContainer" parent="Main/Menu/Tab"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main/Menu/Tab/EMPTY"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.235294)
+text = "NO LIBRARY SELECTED"
+
+[node name="ImportDialog" type="FileDialog" parent="."]
+title = "Import Andromeda data file"
+initial_position = 2
+size = Vector2i(454, 159)
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+mode_overrides_title = false
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.json ; JSON Files")
+use_native_dialog = true
+
+[node name="ExportDialog" type="FileDialog" parent="."]
+title = "Export Andromeda data file"
+initial_position = 2
+size = Vector2i(454, 159)
+ok_button_text = "Save"
+mode_overrides_title = false
+access = 2
+filters = PackedStringArray("*.json ; JSON Files")
+use_native_dialog = true
+
+[node name="ImportFailDialog" type="AcceptDialog" parent="."]
+title = "Import Failed"
+initial_position = 2
+size = Vector2i(400, 100)
+dialog_text = "Data import failed."
+
+[node name="ExportFailDialog" type="AcceptDialog" parent="."]
+title = "Export Failed"
+initial_position = 2
+size = Vector2i(495, 100)
+dialog_text = "Data export failed."
+
+[node name="ImportSuccessDialog" type="AcceptDialog" parent="."]
+title = "Import Successful"
+initial_position = 2
+size = Vector2i(495, 100)
+dialog_text = "Data imported successfully."
+
+[node name="ExportSuccessDialog" type="AcceptDialog" parent="."]
+title = "Import Successful"
+initial_position = 2
+size = Vector2i(495, 100)
+dialog_text = "Data exported successfully."
+
+[node name="ClearConfirmDialog" type="ConfirmationDialog" parent="."]
+initial_position = 2
+size = Vector2i(346, 106)
+ok_button_text = "Yes"
+dialog_text = "Are you sure you wish to clear all libraries?
+All library configuration data will be lost!"
+cancel_button_text = "No"
+
+[connection signal="library_list_updated" from="." to="Main/Menu/VBoxContainer/ItemList" method="_on_panel_base_library_list_updated"]
+[connection signal="id_pressed" from="Main/Bar/MenuBar/File" to="Main/Bar/MenuBar" method="_on_file_id_pressed"]
+[connection signal="id_pressed" from="Main/Bar/MenuBar/Audio" to="Main/Bar/MenuBar" method="_on_libraries_id_pressed_libraries"]
+[connection signal="button_up" from="Main/Menu/VBoxContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="resized" from="Main/Menu/Tab/PanelBase" to="Main/Menu/Tab/PanelBase" method="_on_resized"]
+[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@18739" to="Main/Menu/Tab/@ScrollContainer@18739" method="_on_resized"]
+[connection signal="confirmed" from="ImportDialog" to="." method="_on_import_ok"]
+[connection signal="file_selected" from="ImportDialog" to="." method="_on_import_ok"]
+[connection signal="file_selected" from="ExportDialog" to="." method="_on_export_ok"]
+[connection signal="confirmed" from="ClearConfirmDialog" to="." method="_on_clear_confirm_dialog_confirmed"]
