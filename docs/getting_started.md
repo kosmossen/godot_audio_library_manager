@@ -22,7 +22,7 @@ At this point you now have a barebones setup complete and you may mess with the 
 ### Playing sounds in a running project
 
 After setting up your libraries, you will likely want to utilize the sounds in your game. To achieve this, the plugin contains an `AudioLibrary` class, which is used to play back sounds using data saved in the plugin.
-To get started, use the static `initialize()` function found in `AudioLibrary` class to instantiate a new instance of the class. You can technically locate this node anywhere, but I recommend putting it either in an autoload or directly into the root of the project. To achieve this, you could run something like this in an autoload script:
+To get started, use the static `initialize()` function found in `AudioLibrary` class to instantiate a new instance of the class. You can technically put this node anywhere, but I recommend putting it either in an autoload or directly into the root of the SceneTree. To achieve this, you could run something like this in an autoload script:
 
 `@onready var audiolibrary = AudioLibrary.initialize(get_node("/root/"))`
 
