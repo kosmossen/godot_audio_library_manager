@@ -17,7 +17,7 @@ In the fresh interface you may now create your first audio library. Either click
 You should now see the interface for your newly created, uninitialized library. The first thing to do here is to select the path to your audio files. For example, if you have some files at path `res://resources/sfx`, you can insert this path in the **Source Path** field. Alternatively, you can click the folder button next to the **Source Path** field and navigate to your preferred dictionary using the file dialog.
 After entering a valid path, the plugin should now display all valid sound files at the path (and under its subdirectories). 
 
-At this point you now have a barebones setup complete and you may mess with the library and audio file settings at your leisure (and don't worry, the files themselves will not be modified in any way). It is also recommended to rename the library to suit it's purpose using the *Rename* button on the top left of the library panel. For example, if your library is meant for sound effects, you could name it "SFX". Likewise, a library meant for music could simply be named "Music" and so on.
+At this point you now have a barebones setup complete and you may mess with the library and audio file settings at your leisure (and don't worry, the files themselves will not be modified in any way). It is also recommended to rename the library to suit its purpose using the *Rename* button on the top left of the library panel. For example, if your library is meant for sound effects, you could name it "SFX". Likewise, a library meant for music could simply be named "Music" and so on.
 
 ### Playing sounds in a running project
 
