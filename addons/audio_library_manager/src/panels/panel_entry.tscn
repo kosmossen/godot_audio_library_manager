@@ -13,8 +13,8 @@ script = ExtResource("1_iqdud")
 ui_settingscontainer = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer")
 ui_settingsbutton = NodePath("VBoxContainer/HBoxContainer/SettingsButton")
 ui_volume = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/VolumeBG/VolumeSpinBox")
-ui_pitch = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PitchSpinBox")
-ui_poly = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PolySpinBox")
+ui_pitch = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PitchBG/PitchSpinBox")
+ui_poly = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PolyBG/PolySpinBox")
 ui_volume_bg = NodePath("VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/VolumeBG")
 ui_filename = NodePath("VBoxContainer/HBoxContainer/HBoxContainer/Filename")
 ui_filetype = NodePath("VBoxContainer/HBoxContainer/Filetype")
@@ -82,7 +82,7 @@ theme_override_constants/separation = 10
 [node name="VolumeBG" type="ColorRect" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-mouse_filter = 2
+mouse_filter = 1
 color = Color(1, 0.105882, 0.0745098, 0.176471)
 
 [node name="VolumeLabel" type="Label" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/VolumeBG"]
@@ -94,6 +94,9 @@ offset_top = -11.5
 offset_right = 54.0
 offset_bottom = 11.5
 grow_vertical = 2
+tooltip_text = "Sound playback volume, in decibels.
+Max: 24 dB, Min: -100 dB"
+mouse_filter = 1
 theme_override_colors/font_outline_color = Color(0.4, 0, 0, 1)
 text = "vol/dB:"
 
@@ -118,13 +121,39 @@ custom_minimum_size = Vector2(1, 0)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="PitchLabel" type="Label" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+[node name="PitchBG" type="ColorRect" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
+
+[node name="PitchLabel" type="Label" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PitchBG"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 64.0
+offset_bottom = 11.5
+grow_vertical = 2
+tooltip_text = "Sound playback pitch, in percents.
+Max: 400%, Min: 1%"
+mouse_filter = 1
 theme_override_colors/font_outline_color = Color(0, 0, 0.627451, 1)
 text = "pitch/%:"
 
-[node name="PitchSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
-layout_mode = 2
+[node name="PitchSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PitchBG"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -83.0625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
 mouse_filter = 1
 min_value = 1.0
 max_value = 400.0
@@ -135,12 +164,37 @@ custom_minimum_size = Vector2(1, 0)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="PolyLabel" type="Label" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+[node name="PolyBG" type="ColorRect" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
+
+[node name="PolyLabel" type="Label" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PolyBG"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 54.0
+offset_bottom = 11.5
+grow_vertical = 2
+tooltip_text = "Maximum sound polyphony, in number of simultaneous sounds."
+mouse_filter = 1
 text = "poly/n:"
 
-[node name="PolySpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer"]
-layout_mode = 2
+[node name="PolySpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PolyBG"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -83.0625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
 mouse_filter = 1
 min_value = 1.0
 max_value = 999999.0
@@ -188,8 +242,8 @@ visible = false
 [connection signal="mouse_entered" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_exited"]
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/VolumeBG/VolumeSpinBox" to="." method="_on_setting_changed"]
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PitchSpinBox" to="." method="_on_setting_changed"]
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PolySpinBox" to="." method="_on_setting_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PitchBG/PitchSpinBox" to="." method="_on_setting_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/SettingsSlot/SettingsContainer/PolyBG/PolySpinBox" to="." method="_on_setting_changed"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SettingsButton" to="." method="_on_settings_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/Play" to="." method="_on_play_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/Info" to="." method="_on_info_button_up"]
