@@ -1,6 +1,6 @@
 ## Getting Started
 
-*Guide for plugin version 0.1*
+*Guide for plugin version 0.2*
 
 ### Initial setup
 
@@ -22,11 +22,11 @@ At this point you now have a barebones setup complete and you may mess with the 
 ### Playing sounds in a running project
 
 After setting up your libraries, you will likely want to utilize the sounds in your game. To achieve this, the plugin contains an `AudioLibrary` class, which is used to play back sounds using data saved in the plugin.
-To get started, use the static `initialize()` function found in `AudioLibrary` class to instantiate a new instance of the class. You can technically put this node anywhere, but I recommend putting it either in an autoload or directly into the root of the SceneTree. To achieve this, you could run something like this in an autoload script:
+To get started, use the static `initialize()` function found in `AudioLibrary` class to instantiate a new instance of the class. You can technically put this node anywhere, but I recommend putting it in an autoload. To achieve this, you could run the following in your autoload script:
 
-`@onready var audiolibrary = AudioLibrary.initialize(get_node("/root/"))`
+`@onready var audiolibrary = AudioLibrary.initialize(self)`
 
-This line will set up the audio library in the root and return its reference to the *audiolibrary* variable.
+This line will set up the audio library under your autoload node and return its reference to the *audiolibrary* variable.
 
 Using this reference, we can now use the in-built functions to play global and local sounds from the libraries we set up before in the editor interface. Here are some commands available to you through the `AudioLibrary` class:
 
@@ -50,6 +50,9 @@ Play a local sound in 2D space. `world` should be a root node of your world/leve
   
 Play a local sound in 3D space. `world` should be a root node of your world/level, `target` is the node that the sound player will follow, Plays a sound named `sound_name` from library `library_name`. `extra_variables` is a Dictionary which can be used to feed the resulting AudioStreamPlayer3D additional variables such as attenuation (Example: `{"attenuation":2.0}`)
 
+### Example autoload script
+
+![Getting Started](getting_started_3.png)
 
 ### Custom playback systems
 If you would rather develop your own playback system but still utilize the data from the plugin, there are functions in place to faciliate this in the `AudioLibrary` class:
@@ -69,3 +72,4 @@ If you want to go even further, you can utilize the `AudioLibraryData` class to 
 - `data_save(data:Dictionary, full_overwrite:bool=true, bypass_verification:bool=false)`  
 
 By default, the data.json is stored in `res://addons/audio_library_manager/data/`
+

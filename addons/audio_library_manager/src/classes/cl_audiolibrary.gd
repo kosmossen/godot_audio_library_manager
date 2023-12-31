@@ -49,12 +49,9 @@ func _enter_tree():
 # STATIC
 
 ## Create a new instance of AudioLibrary as child of "parent" and return it.
-static func initialize(parent:Node, deferred:bool=false) -> Node:
+static func initialize(parent:Node) -> Node:
 	var _new = new()
-	if deferred:
-		parent.add_child.call_deferred(_new)
-	else:
-		parent.add_child(_new)
+	parent.add_child(_new)
 	return _new
 
 # INTERNAL

@@ -19,7 +19,7 @@ func _on_play_button_up():
 
 func _on_click_button_up():
 	ExampleAutoload.play_sfx("sfx_click")
-
+	
 func _on_hurt_button_up():
 	ExampleAutoload.play_sfx("sfx_hurt")
 
