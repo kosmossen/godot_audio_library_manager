@@ -291,7 +291,8 @@ func _on_delete_dialog_confirmed():
 
 ## Reload library
 func _on_reload_button_up() -> void:
-	reload(false)
+	if initialized:
+		reload(false)
 
 ## Search
 func _on_line_edit_text_changed(new_text) -> void:
@@ -309,7 +310,8 @@ func _on_audio_stream_player_finished():
 func _on_file_dialog_dir_selected(dir):
 	$Pad/Stack/PlateMargin/Plate/Path/PathLineEdit.text = dir
 	$FileDialog.hide()
-	reload(false)
+	if initialized:
+		reload(false)
 
 ## FileDialog open
 func _on_file_dialog_button_button_up():
@@ -325,15 +327,18 @@ func _on_stop_all_sounds():
 
 ## New path set
 func _on_path_line_edit_text_changed(new_text):
-	reload(false)
+	if initialized:
+		reload(false)
 
 ## Audio bus selected
 func _on_bus_options_button_item_selected(index):
-	reload(false)
+	if initialized:
+		reload(false)
 
 ## Exclusive mode toggled
 func _on_exclusive_check_box_toggled(toggled_on):
-	reload(false)
+	if initialized:
+		reload(false)
 
 ## Library resized
 func _on_resized():

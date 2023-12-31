@@ -202,6 +202,7 @@ value = 1.0
 rounded = true
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Settings.."
