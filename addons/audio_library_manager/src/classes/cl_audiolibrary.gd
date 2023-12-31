@@ -37,12 +37,12 @@ func _enter_tree():
 	match library_mode:
 		MODE.STATIC:
 			var _library_build = _build_library()
-			if active: 
+			if active:
 				print("Audio library built successfully with %s libraries and %s sounds total." % [_library_build[0], _library_build[1]])
 				emit_signal("library_built")
 		MODE.DYNAMIC:
 			var _library_build = _build_library_dynamic()
-			if active: 
+			if active:
 				print("Dynamic audio library initialized with %s libraries and %s sounds total." % [_library_build[0], _library_build[1]])
 				emit_signal("library_built")
 
@@ -271,8 +271,8 @@ func stop_all_sounds(library_name:String="") -> Error:
 			_lookup[library_name][i].stop()
 	else:
 		for i in _lookup:
-			for j in i:
-				j.stop()
+			for j in _lookup[i]:
+				_lookup[i][j].stop()
 	return OK
 
 ## Instantiate an AudioStreamPlayer2D parented to "world" Node, following a "target" Node2D's position playing sound from an audio library.

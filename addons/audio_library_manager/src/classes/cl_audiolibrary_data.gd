@@ -1,6 +1,7 @@
 @tool
 class_name AudioLibraryData extends Resource
 ## Audio Library Manager Data Manager
+##
 ## The AudioLibraryData class is used to save, load and verify audio library data files.
 
 ## Plugin data path and filename
