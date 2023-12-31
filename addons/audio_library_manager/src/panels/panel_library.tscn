@@ -271,6 +271,7 @@ title = "Rename Audio Library"
 [node name="InfoWindow" parent="." instance=ExtResource("7_3o8m1")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+metadata/previously_played = ""
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Choose a library source directory"

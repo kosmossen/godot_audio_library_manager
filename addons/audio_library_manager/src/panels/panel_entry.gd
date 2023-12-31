@@ -122,6 +122,8 @@ func _on_play_button_up():
 	var _stream = load(data["metadata"]["path"])
 	parent_panel.play_sample(
 		_stream,
+		data["metadata"]["filename"],
+		data["settings"]["poly"]*plugin.CONSTANTS.TEMPLATE_SOUND_SETTINGS["poly"]["scale"],
 		data["settings"]["volume"]*plugin.CONSTANTS.TEMPLATE_SOUND_SETTINGS["volume"]["scale"], 
 		data["settings"]["pitch"]*plugin.CONSTANTS.TEMPLATE_SOUND_SETTINGS["pitch"]["scale"], 
 		parent_panel.data["config"]["bus"],

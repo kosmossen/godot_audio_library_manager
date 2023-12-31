@@ -72,9 +72,12 @@ func set_data() -> void:
 			_index += 1
 
 ## Play audio sample
-func play_sample(stream:AudioStream, volume:int=0, pitch:float=0.0, bus:String="Master", title:String = "Sample") -> void:
+func play_sample(stream:AudioStream, sound_name:String, poly:int=1, volume:int=0, pitch:float=0.0, bus:String="Master", title:String = "Sample") -> void:
 	var asp = $AudioStreamPlayer
-	asp.stream = stream
+	if asp.get_meta("previously_played") != sound_name:
+		asp.stream = stream
+		asp.set_meta("previously_played", sound_name)
+	asp.max_polyphony = poly
 	asp.volume_db = volume
 	asp.pitch_scale = pitch/100
 	asp.bus = bus
