@@ -57,7 +57,7 @@ const TEMPLATE_SOUND_SETTINGS := {
 		"control_var" : "ui_poly",
 		"default" : 1,
 		"min" : 1,
-		"max" : 100,
+		"max" : 1024,
 		"scale" : 1.0,
 	}
 }

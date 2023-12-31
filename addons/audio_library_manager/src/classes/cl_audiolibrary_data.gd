@@ -25,6 +25,13 @@ static func data_verify(data:Dictionary) -> bool:
 		return false
 	return true
 
+## Remove entries with nonexistent files
+static func erase_invalid_entries(data:Dictionary) -> void:
+	for i in data:
+		for j in data[i]["files"]:
+			if not FileAccess.file_exists(data[i]["files"][j]["metadata"]["path"]):
+				data[i]["files"].erase(j)
+
 # FILE HANDLING
 
 ## Save data to data file. Full overwrite overwrites the entire data file when saving rather than only existing data keys being overwritten by new data.
@@ -47,6 +54,7 @@ static func data_save(data:Dictionary, full_overwrite:bool=true, bypass_verifica
 		return ERR_INVALID_DATA
 	if not DirAccess.dir_exists_absolute(PATH_DATA): 
 		DirAccess.make_dir_absolute(PATH_DATA)
+	erase_invalid_entries(_final_data)
 	var _file = FileAccess.open(PATH_DATA+PATH_DATA_FILE, FileAccess.WRITE)
 	_file.store_line(JSON.stringify(_dict, "\t"))
 	_file.close()
@@ -69,6 +77,7 @@ static func data_load(include_frame:bool=false, bypass_verification:bool=false, 
 	if not data_verify(_out) and not bypass_verification:
 		push_error("Verification of loaded file failed, data may be invalid or corrupted.")
 		return ERR_FILE_CORRUPT
+	erase_invalid_entries(_out["data"])
 	if include_frame:
 		return _out
 	return _out["data"]

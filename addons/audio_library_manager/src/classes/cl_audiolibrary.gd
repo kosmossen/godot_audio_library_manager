@@ -164,6 +164,12 @@ func _get_asp(library_name:String, sound_name:String, strip_extension:bool=true)
 	else:
 		return false
 
+func _erase_invalid_entries() -> void:
+	for i in _loaded_data:
+		for j in _loaded_data[i]["files"]:
+			if not FileAccess.file_exists(_loaded_data[i]["files"][j]["metadata"]["path"]):
+				_loaded_data[i]["files"].erase(j)
+
 # PRIMARY
 
 ## Get the data of a chosen sound from an audio library.
@@ -222,57 +228,55 @@ func get_playing_audiostreamplayers(library_name:String) -> Array:
 		return _playing
 	return []
 
+# PLAYBACK
+
 ## Play a global sound from an audio library.
 ## Example: play_sound("SFX", "sfx_dash")
 func play_sound(library_name:String, sound_name:String) -> Error:
 	if active:
 		var _asp = _get_asp(library_name, sound_name)
 		if _asp:
+			if _asp.get_parent().get_meta("config")["exclusive"]:
+				stop_all_sounds(library_name)
 			_asp.play()
 			return OK
 		else:
 			push_error("Unable to play sound, sound '%s' not found in library '%s'" % [sound_name, library_name])
 			return ERR_FILE_NOT_FOUND
-		if _asp.get_parent().get_meta("config")["exclusive"]:
-			stop_all_sounds(library_name)
 	push_warning("Unable to play sound '%s' in library '%s', AudioLibrary class has not yet initialized!" % [sound_name, library_name])
 	return ERR_UNAVAILABLE
 	
 ## Stop a global sound being played from an audio library.
 ## Example: stop_sound("SFX", "sfx_dash")
 func stop_sound(library_name:String, sound_name:String) -> Error:
-	if active:
-		if library_name in _lookup:
-			if sound_name in _lookup[library_name]:
-				_lookup[library_name][sound_name].stop()
-				return OK
-			else:
-				return ERR_FILE_NOT_FOUND
+	if library_name in _lookup:
+		if sound_name in _lookup[library_name]:
+			_lookup[library_name][sound_name].stop()
+			return OK
 		else:
 			return ERR_FILE_NOT_FOUND
-	return ERR_UNAVAILABLE
+	else:
+		return ERR_FILE_NOT_FOUND
 	
 ## Stop all global AND local sounds being played from the audio library.
 ## If a library name is specified, only stops sounds in specific library.
 ## Example: stop_all_sounds()
 func stop_all_sounds(library_name:String="") -> Error:
-	if active:
-		for i in get_tree().get_nodes_in_group("AudioLibraryLocalPlayer"):
-			if library_name:
-				if i.get_meta("library") == library_name:
-					i.queue_free()
-			else:
-				i.queue_free()
-		#
+	for i in get_tree().get_nodes_in_group("AudioLibraryLocalPlayer"):
 		if library_name:
-			for i in _lookup[library_name]:
-				_lookup[library_name][i].stop()
+			if i.get_meta("library") == library_name:
+				i.queue_free()
 		else:
-			for i in _lookup:
-				for j in i:
-					j.stop()
-		return OK
-	return ERR_UNAVAILABLE
+			i.queue_free()
+	#
+	if library_name:
+		for i in _lookup[library_name]:
+			_lookup[library_name][i].stop()
+	else:
+		for i in _lookup:
+			for j in i:
+				j.stop()
+	return OK
 
 ## Instantiate an AudioStreamPlayer2D parented to "world" Node, following a "target" Node2D's position playing sound from an audio library.
 ## The AudioStreamPlayer2D will free itself when it is done playing the sound.
@@ -280,6 +284,8 @@ func stop_all_sounds(library_name:String="") -> Error:
 ## Returns either the instantiated AudioStreamPlayer2D or an Error.
 func play_2d_sound(world:Node, target:Node2D, library_name:String, sound_name:String, extra_variables:Dictionary={}) -> Variant:
 	if active:
+		if _loaded_data[library_name]["config"]["exclusive"]:
+			stop_all_sounds(library_name)
 		var _asp = OBJ_AUDIO_2D.instantiate()
 		if not world:
 			push_error("Unable to play 2D sound, given world node is invalid/does not exist")
@@ -311,6 +317,8 @@ func play_2d_sound(world:Node, target:Node2D, library_name:String, sound_name:St
 ## Returns either the instantiated AudioStreamPlayer3D or an Error.
 func play_3d_sound(world:Node, target:Node3D, library_name:String, sound_name:String, extra_variables:Dictionary={}) -> Variant:
 	if active:
+		if _loaded_data[library_name]["config"]["exclusive"]:
+			stop_all_sounds(library_name)
 		var _asp = OBJ_AUDIO_3D.instantiate()
 		if not world:
 			push_error("Unable to play 3D sound, given world node is invalid/does not exist")

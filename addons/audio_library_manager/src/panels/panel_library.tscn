@@ -203,7 +203,7 @@ layout_mode = 2
 
 [node name="ExclusiveCheckBox" type="CheckBox" parent="Pad/Stack/PlateMargin/Plate/ChecksContainer"]
 layout_mode = 2
-tooltip_text = "Only allow a single sound from this library to play at a time. Only applies to built-in global playback and not 2D/3D sounds or custom playback solutions."
+tooltip_text = "Only allow a single sound from this library to play at a time. Does not apply to custom playback solutions unless implemented."
 theme_override_styles/focus = SubResource("StyleBoxEmpty_80bcx")
 text = "Exclusive"
 
