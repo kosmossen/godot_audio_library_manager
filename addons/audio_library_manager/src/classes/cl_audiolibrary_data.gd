@@ -1,6 +1,5 @@
 @tool
-extends Resource
-class_name AudioLibraryData
+class_name AudioLibraryData extends Resource
 ## Audio Library Manager Data Manager
 ## The AudioLibraryData class is used to save, load and verify audio library data files.
 

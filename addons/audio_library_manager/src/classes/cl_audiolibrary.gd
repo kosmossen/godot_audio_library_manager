@@ -1,9 +1,10 @@
 @icon("res://addons/audio_library_manager/res/icon.svg")
-extends Node
-class_name AudioLibrary
+class_name AudioLibrary extends Node
 ## Audio Library Manager
 ##
 ## AudioLibrary class for playing, stopping and getting sounds from the audio library.
+
+signal library_built
 
 enum MODE {
 	STATIC,
@@ -36,15 +37,19 @@ func _enter_tree():
 	match library_mode:
 		MODE.STATIC:
 			var _library_build = _build_library()
-			if active: print("Audio library built successfully with %s libraries and %s sounds total." % [_library_build[0], _library_build[1]])
+			if active: 
+				print("Audio library built successfully with %s libraries and %s sounds total." % [_library_build[0], _library_build[1]])
+				emit_signal("library_built")
 		MODE.DYNAMIC:
 			var _library_build = _build_library_dynamic()
-			if active: print("Dynamic audio library initialized with %s libraries and %s sounds total." % [_library_build[0], _library_build[1]])
+			if active: 
+				print("Dynamic audio library initialized with %s libraries and %s sounds total." % [_library_build[0], _library_build[1]])
+				emit_signal("library_built")
 
 # STATIC
 
 ## Create a new instance of AudioLibrary as child of "parent" and return it.
-static func initialize(parent:Node, deferred:bool=true) -> Node:
+static func initialize(parent:Node, deferred:bool=false) -> Node:
 	var _new = new()
 	if deferred:
 		parent.add_child.call_deferred(_new)
@@ -230,6 +235,7 @@ func play_sound(library_name:String, sound_name:String) -> Error:
 			return ERR_FILE_NOT_FOUND
 		if _asp.get_parent().get_meta("config")["exclusive"]:
 			stop_all_sounds(library_name)
+	push_warning("Unable to play sound '%s' in library '%s', AudioLibrary class has not yet initialized!" % [sound_name, library_name])
 	return ERR_UNAVAILABLE
 	
 ## Stop a global sound being played from an audio library.
@@ -296,6 +302,7 @@ func play_2d_sound(world:Node, target:Node2D, library_name:String, sound_name:St
 		_asp.set_meta("library", library_name)
 		_asp.play()
 		return _asp
+	push_warning("Unable to play 2D sound '%s' in library '%s', AudioLibrary class has not yet initialized!" % [sound_name, library_name])
 	return ERR_UNAVAILABLE
 	
 ## Instantiate an AudioStreamPlayer3D parented to "world" Node, following a "target" Node3D's position playing sound from an audio library.
@@ -326,4 +333,5 @@ func play_3d_sound(world:Node, target:Node3D, library_name:String, sound_name:St
 		_asp.set_meta("library", library_name)
 		_asp.play()
 		return _asp
+	push_warning("Unable to play 3D sound '%s' in library '%s', AudioLibrary class has not yet initialized!" % [sound_name, library_name])
 	return ERR_UNAVAILABLE

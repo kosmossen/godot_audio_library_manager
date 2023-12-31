@@ -1,6 +1,5 @@
 @tool
-extends Resource
-class_name AudioLibraryStatus
+class_name AudioLibraryStatus extends Resource
 ## Audio Library Manager Status
 ## The AudioLibraryStatus class is used to store and represent an audio library status.
 

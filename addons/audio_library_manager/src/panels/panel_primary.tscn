@@ -176,7 +176,7 @@ cancel_button_text = "No"
 [connection signal="id_pressed" from="Main/Bar/MenuBar/Audio" to="Main/Bar/MenuBar" method="_on_libraries_id_pressed_libraries"]
 [connection signal="button_up" from="Main/Menu/VBoxContainer/Button" to="." method="_on_button_button_up"]
 [connection signal="resized" from="Main/Menu/Tab/PanelBase" to="Main/Menu/Tab/PanelBase" method="_on_resized"]
-[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@18739" to="Main/Menu/Tab/@ScrollContainer@18739" method="_on_resized"]
+[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@18719" to="Main/Menu/Tab/@ScrollContainer@18719" method="_on_resized"]
 [connection signal="confirmed" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ExportDialog" to="." method="_on_export_ok"]
