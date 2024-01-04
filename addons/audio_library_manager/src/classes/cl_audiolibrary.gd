@@ -197,6 +197,7 @@ func data_to_audiostreamplayer(asp:Node, library_name:String, sound_name:String)
 		_data_to_asp(asp, _data_sound, _data_library)
 		return OK
 	else:
+		push_error("Unable to move data to AudioStreamPlayer, unable to get data.")
 		return ERR_DATABASE_CANT_READ
 
 ## Feed an AudioStreamPlayer the data from a library AudioStreamPlayer (STATIC MODE ONLY)
@@ -205,7 +206,7 @@ func asp_to_audiostreamplayer(asp:Node, library_name:String, sound_name:String) 
 	if library_mode == MODE.DYNAMIC:
 		var _source_asp = _get_asp(library_name, sound_name)
 		if not _source_asp:
-			push_error("Unable to copy data to AudioStreamPlayer, sound not found in lookup")
+			push_error("Unable to copy data to AudioStreamPlayer, sound not found in lookup.")
 			return ERR_FILE_NOT_FOUND
 		_clone_asp_data(_source_asp, asp)
 		return OK
@@ -223,6 +224,7 @@ func get_playing_audiostreamplayers(library_name:String) -> Array:
 					if j.playing:
 						_playing.append(j)
 		return _playing
+	push_error("Unable to get playing AudioStreamPlayers, AudioLibrary class inactive.")
 	return []
 
 # PLAYBACK
