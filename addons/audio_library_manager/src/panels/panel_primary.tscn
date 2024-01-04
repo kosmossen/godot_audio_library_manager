@@ -66,7 +66,7 @@ tooltip_text = "Godot Audio Library Manager
 Plugin by kosmossen"
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-text = "v0.1"
+text = "v0.2.dev"
 horizontal_alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="Main"]

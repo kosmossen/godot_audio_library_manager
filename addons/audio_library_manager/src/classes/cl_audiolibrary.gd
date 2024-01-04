@@ -251,8 +251,10 @@ func stop_sound(library_name:String, sound_name:String) -> Error:
 			_lookup[library_name][sound_name].stop()
 			return OK
 		else:
+			push_error("Unable to stop sound, sound '%s' not found in library '%s'" % [sound_name, library_name])
 			return ERR_FILE_NOT_FOUND
 	else:
+		push_error("Unable to stop sound, library '%s' not found" % [sound_name, library_name])
 		return ERR_FILE_NOT_FOUND
 	
 ## Stop all global AND local sounds being played from the audio library.
