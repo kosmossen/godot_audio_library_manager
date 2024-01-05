@@ -52,7 +52,20 @@ Play a local sound in 3D space. `world` should be a root node of your world/leve
 
 ### Example autoload script
 
-![Getting Started](getting_started_3.png)
+```
+extends Node
+
+@onready var audiolibrary = AudioLibrary.initialize(self)
+
+func play_sfx(sfx:String) -> void:
+	audiolibrary.play_sound("SFX", sfx)
+	
+func play_2d_music(world:Node, parent:Node2D, sfx:String, properties:Dictionary) -> void:
+	audiolibrary.play_2d_sound(world, parent, "Music", sfx, properties)
+	
+func play_3d_music(world:Node, parent:Node3D, sfx:String, properties:Dictionary) -> void:
+	audiolibrary.play_3d_sound(world, parent, "Music", sfx, properties)
+```
 
 ### Custom playback systems
 If you would rather develop your own playback system but still utilize the data from the plugin, there are functions in place to faciliate this in the `AudioLibrary` class:
