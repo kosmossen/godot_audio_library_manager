@@ -10,6 +10,8 @@ The plugin can be installed by ![downloading a copy from this github repo](https
 
 ![Getting Started](docs/getting_started.md)
 
+![JSON Data](docs/json_data.md)
+
 ## Screenshots
 
 ![Main interface](docs/getting_started_2.png)
