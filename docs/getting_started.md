@@ -1,3 +1,5 @@
+Next: ![JSON Data](json_data.md)
+
 ## Getting Started
 
 *Guide for plugin version 0.2*
@@ -86,3 +88,5 @@ If you want to go even further, you can utilize the `AudioLibraryData` class to 
 
 By default, the data.json is stored in `res://addons/audio_library_manager/data/`
 
+
+Next: ![JSON Data](json_data.md)

@@ -42,10 +42,8 @@ script = ExtResource("2_8owiv")
 title = "File"
 item_count = 5
 item_0/text = "New Library"
-item_0/id = 0
 item_1/text = "Clear Libraries.."
 item_1/id = 1
-item_2/text = ""
 item_2/id = 2
 item_2/separator = true
 item_3/text = "Import.."
@@ -56,7 +54,6 @@ item_4/id = 4
 [node name="Audio" type="PopupMenu" parent="Main/Bar/MenuBar"]
 item_count = 1
 item_0/text = "Stop All Sounds"
-item_0/id = 0
 
 [node name="Version" type="Label" parent="Main/Bar"]
 custom_minimum_size = Vector2(74, 0)
@@ -66,7 +63,7 @@ tooltip_text = "Godot Audio Library Manager
 Plugin by kosmossen"
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-text = "v0.2.dev"
+text = "v0.2"
 horizontal_alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="Main"]
@@ -107,10 +104,12 @@ target_tabcontainer = NodePath("../../Tab")
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_yf6ag")
+current_tab = 0
 tabs_visible = false
 
 [node name="EMPTY" type="CenterContainer" parent="Main/Menu/Tab"]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="Label" type="Label" parent="Main/Menu/Tab/EMPTY"]
 layout_mode = 2
@@ -120,23 +119,23 @@ text = "NO LIBRARY SELECTED"
 [node name="ImportDialog" type="FileDialog" parent="."]
 title = "Import Andromeda data file"
 initial_position = 2
-size = Vector2i(454, 159)
+size = Vector2i(454, 175)
 ok_button_text = "Open"
 dialog_hide_on_ok = true
 mode_overrides_title = false
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.json ; JSON Files")
+filters = PackedStringArray("*.gdal ; GDAL Files")
 use_native_dialog = true
 
 [node name="ExportDialog" type="FileDialog" parent="."]
 title = "Export Andromeda data file"
 initial_position = 2
-size = Vector2i(454, 159)
+size = Vector2i(454, 175)
 ok_button_text = "Save"
 mode_overrides_title = false
 access = 2
-filters = PackedStringArray("*.json ; JSON Files")
+filters = PackedStringArray("*.gdal ; GDAL Files")
 use_native_dialog = true
 
 [node name="ImportFailDialog" type="AcceptDialog" parent="."]
@@ -176,7 +175,7 @@ cancel_button_text = "No"
 [connection signal="id_pressed" from="Main/Bar/MenuBar/Audio" to="Main/Bar/MenuBar" method="_on_libraries_id_pressed_libraries"]
 [connection signal="button_up" from="Main/Menu/VBoxContainer/Button" to="." method="_on_button_button_up"]
 [connection signal="resized" from="Main/Menu/Tab/PanelBase" to="Main/Menu/Tab/PanelBase" method="_on_resized"]
-[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@18719" to="Main/Menu/Tab/@ScrollContainer@18719" method="_on_resized"]
+[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@23959" to="Main/Menu/Tab/@ScrollContainer@23959" method="_on_resized"]
 [connection signal="confirmed" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ExportDialog" to="." method="_on_export_ok"]

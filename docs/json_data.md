@@ -1,3 +1,5 @@
+Previous: ![Getting Started](getting_started.md)
+
 ## JSON Data
 
 *Guide for plugin version 0.2*
@@ -92,3 +94,5 @@ Under each sound file key is another two keys: `metadata` and `settings`. `metad
 	"plugin": "godot_audio_library_manager"
 }
 ```
+
+Previous: ![Getting Started](getting_started.md)

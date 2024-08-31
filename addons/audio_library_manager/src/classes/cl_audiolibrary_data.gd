@@ -5,8 +5,9 @@ class_name AudioLibraryData extends Resource
 ## The AudioLibraryData class is used to save, load and verify audio library data files.
 
 ## Plugin data path and filename
-const PATH_DATA = "res://addons/audio_library_manager/data/"
-const PATH_DATA_FILE = "data.json"
+const PATH_DATA = "res://.godot/"
+const PATH_DATA_FILE_NAME = "data"
+const PATH_DATA_EXT = "gdal"
 ## Data source plugin verification string. changing this will break compatibility.
 const PLUGIN_STRING = "godot_audio_library_manager"
 
@@ -56,7 +57,7 @@ static func data_save(data:Dictionary, full_overwrite:bool=true, bypass_verifica
 	if not DirAccess.dir_exists_absolute(PATH_DATA): 
 		DirAccess.make_dir_absolute(PATH_DATA)
 	erase_invalid_entries(_final_data)
-	var _file = FileAccess.open(PATH_DATA+PATH_DATA_FILE, FileAccess.WRITE)
+	var _file = FileAccess.open(PATH_DATA+PATH_DATA_FILE_NAME+"."+PATH_DATA_EXT, FileAccess.WRITE)
 	_file.store_line(JSON.stringify(_dict, "\t"))
 	_file.close()
 	return OK
@@ -65,15 +66,15 @@ static func data_save(data:Dictionary, full_overwrite:bool=true, bypass_verifica
 static func data_load(include_frame:bool=false, bypass_verification:bool=false, create_new_on_missing:bool=true) -> Variant:
 	# fileaccess
 	var _out
-	if FileAccess.file_exists(PATH_DATA+PATH_DATA_FILE):
-		var _file = FileAccess.open(PATH_DATA+PATH_DATA_FILE, FileAccess.READ)
+	if FileAccess.file_exists(PATH_DATA+PATH_DATA_FILE_NAME+"."+PATH_DATA_EXT):
+		var _file = FileAccess.open(PATH_DATA+PATH_DATA_FILE_NAME+"."+PATH_DATA_EXT, FileAccess.READ)
 		_out = JSON.parse_string(_file.get_as_text())
 	elif not create_new_on_missing:
 		push_error("Verification of loaded file failed, file not found.")
 		return ERR_DOES_NOT_EXIST
 	else:
 		data_save({})
-		var _file = FileAccess.open(PATH_DATA+PATH_DATA_FILE, FileAccess.READ)
+		var _file = FileAccess.open(PATH_DATA+PATH_DATA_FILE_NAME+"."+PATH_DATA_EXT, FileAccess.READ)
 		_out = JSON.parse_string(_file.get_as_text())
 	if not data_verify(_out) and not bypass_verification:
 		push_error("Verification of loaded file failed, data may be invalid or corrupted.")
@@ -103,9 +104,9 @@ static func data_import(path:String) -> Error:
 static func data_export(path:String, allow_overwrite:bool=true) -> Error:
 	var _data = data_load(true)
 	if path.get_extension() == "":
-		path += ".json"
-	if not path.get_extension() == "json":
-		push_error("Data export failed, export file must be a JSON file.")
+		path += "."+PATH_DATA_EXT
+	if not path.get_extension() == PATH_DATA_EXT:
+		push_error("Data export failed, export file type must be GDAL (Godot Audio Library).")
 		return ERR_INVALID_PARAMETER
 	if FileAccess.file_exists(path) and not allow_overwrite:
 		push_error("Data export failed, file already exists at export path.")

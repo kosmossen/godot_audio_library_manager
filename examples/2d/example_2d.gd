@@ -25,3 +25,6 @@ func _on_hurt_button_up():
 
 func _on_sparkle_button_up():
 	ExampleAutoload.play_sfx("sfx_sparkle")
+
+func _on_stop_1_button_up():
+	ExampleAutoload.stop_sfx("sfx_sparkle")
