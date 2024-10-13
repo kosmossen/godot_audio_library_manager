@@ -19,7 +19,7 @@ func _enter_tree() -> void:
 		# update version text
 		$Main/Bar/Version.text = "v%s" % _get_plugin_version()
 		# pre-cleaning
-		panel_delete_children()
+		panel_delete_children(child_parent_control[0])
 		$Main/Menu/VBoxContainer/ItemList.clear()
 		# load config
 		if load_data():
@@ -29,27 +29,27 @@ func _enter_tree() -> void:
 # PRIMARY
 	
 func delete_library(id:String) -> void:
-	panel_delete_child(id)
+	panel_delete_child(child_parent_control[0], id)
 	emit_signal("library_list_updated")
 	save_data()
 	$Main/Menu/VBoxContainer/ItemList.select_null()
 	
 func delete_all_libraries() -> void:
-	panel_delete_children()
+	panel_delete_children(child_parent_control[0])
 	emit_signal("library_list_updated")
 	save_data()
 	$Main/Menu/VBoxContainer/ItemList.select_null()
 	
 func new_library(id:String="Library", select_new:bool=false) -> void:
 	# make sure id is unique
-	var _ids = panel_get_ids()
+	var _ids = panel_get_ids(child_parent_control[0])
 	if id in _ids:
 		var _temp = id + ("_")
 		while _ids.has(_temp):
 			_temp = _temp + ("_")
 		id = _temp
 	#
-	var _child = panel_create_child(SCENE_LIBRARY, id, plugin.CONSTANTS.TEMPLATE_LIBRARY)
+	var _child = panel_create_child(child_parent_control[0], SCENE_LIBRARY, id, plugin.CONSTANTS.TEMPLATE_LIBRARY)
 	_child.library_updated.connect(_on_library_updated)
 	_child.library_status_updated.connect(_on_library_status_updated)
 	_child.init()
@@ -59,14 +59,14 @@ func new_library(id:String="Library", select_new:bool=false) -> void:
 	
 ## Safely rename a library
 func rename_library(old_id:String, new_id:String) -> void:
-	if old_id in panel_get_ids():
-		subpanels[new_id] = subpanels[old_id].duplicate(true)
-		subpanels.erase(old_id)
+	if old_id in panel_get_ids(child_parent_control[0]):
+		subpanels[child_parent_control[0]][new_id] = subpanels[child_parent_control[0]][old_id].duplicate(true)
+		subpanels[child_parent_control[0]].erase(old_id)
 	
 ## Use data to create libraries
 func recreate_libraries_from_data() -> void:
-	for i in subpanels:
-		var _new = panel_create_child(SCENE_LIBRARY, i, subpanels[i], false, false)
+	for i in subpanels[child_parent_control[0]]:
+		var _new = panel_create_child(child_parent_control[0], SCENE_LIBRARY, i, subpanels[child_parent_control[0]][i], false, false)
 		_new.library_updated.connect(_on_library_updated)
 		_new.library_status_updated.connect(_on_library_status_updated)
 		_new.set_data()
@@ -75,11 +75,11 @@ func recreate_libraries_from_data() -> void:
 		emit_signal("library_list_updated")
 
 # FILE HANDLING
-
+ 
 ## Save data to config.json
 func save_data(full_overwrite:bool=true) -> void:
 	var _dict = {}
-	if subpanels: _dict = subpanels
+	if subpanels[child_parent_control[0]]: _dict = subpanels[child_parent_control[0]]
 	AudioLibraryData.data_save(_dict, full_overwrite)
 	
 ## Load data from config.json
@@ -87,7 +87,7 @@ func load_data() -> bool:
 	var _subpanels = AudioLibraryData.data_load()
 	if not _subpanels:
 		return false
-	subpanels = _subpanels
+	subpanels[child_parent_control[0]] = _subpanels
 	return true
 	
 ## Import file
@@ -126,7 +126,7 @@ func _on_import_ok(path):
 				_dialog.get_label().text = "Data import failed. Import data is invalid or corrupt."
 		_dialog.show()
 	else:
-		panel_delete_children()
+		panel_delete_children(child_parent_control[0])
 		$Main/Menu/VBoxContainer/ItemList.clear()
 		if load_data():
 			if subpanels:

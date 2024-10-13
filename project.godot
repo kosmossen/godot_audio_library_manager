@@ -20,6 +20,11 @@ config/icon="res://icon.png"
 
 ExampleAutoload="*res://examples/example_autoload.gd"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/audio_library_manager/plugin.cfg")

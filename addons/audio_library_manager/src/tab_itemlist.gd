@@ -37,7 +37,7 @@ func _on_panel_base_library_list_updated() -> void:
 	clear()
 	#
 	var _main_panel = get_owner()
-	var _libraries = _main_panel.panel_get_children()
+	var _libraries = _main_panel.panel_get_children(_main_panel.child_parent_control[0])
 	# add item for each library
 	var _index = 0
 	for i in _libraries:

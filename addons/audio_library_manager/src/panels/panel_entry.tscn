@@ -238,6 +238,7 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="SettingBorrowWindow" parent="." instance=ExtResource("3_qofeg")]
+size = Vector2i(55, 80)
 visible = false
 
 [connection signal="mouse_entered" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_entered"]

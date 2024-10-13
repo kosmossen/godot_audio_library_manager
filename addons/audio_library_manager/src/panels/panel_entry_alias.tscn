@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://c251l218wtv28"]
+
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/panels/panel_entry_alias.gd" id="1_x246t"]
+[ext_resource type="Texture2D" uid="uid://bsiqtyjmnwvg8" path="res://addons/audio_library_manager/res/NodeWarning.svg" id="2_vxapm"]
+[ext_resource type="Texture2D" uid="uid://btjdnp7xeqjt4" path="res://addons/audio_library_manager/res/Remove.svg" id="2_xnk7e"]
+[ext_resource type="PackedScene" uid="uid://bt47fp0sjcxrv" path="res://addons/audio_library_manager/src/windows/window_container.tscn" id="3_pj5ww"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aot6p"]
+
+[node name="AliasEntryPanel" type="MarginContainer" node_paths=PackedStringArray("ui_text_edit_alias", "ui_text_edit_sound", "ui_warn_icon") groups=["AudioLibraryPanel"]]
+custom_minimum_size = Vector2(100, 30)
+size_flags_horizontal = 3
+script = ExtResource("1_x246t")
+ui_text_edit_alias = NodePath("VBoxContainer/HBoxContainer/HBoxContainerTextEdit/TextEditAliasName")
+ui_text_edit_sound = NodePath("VBoxContainer/HBoxContainer/HBoxContainerTextEdit/TextEditSoundName")
+ui_warn_icon = NodePath("VBoxContainer/HBoxContainer/WarnIcon")
+
+[node name="Highlight" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.0392157)
+
+[node name="Darken" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.156863)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainerTextEdit" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
+layout_mode = 2
+text = " - "
+
+[node name="TextEditAliasName" type="LineEdit" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_font_sizes/font_size = 13
+placeholder_text = "alias_name"
+
+[node name="LabelMid" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
+layout_mode = 2
+text = ":"
+
+[node name="TextEditSoundName" type="LineEdit" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_font_sizes/font_size = 13
+placeholder_text = "sound_name_1/sound_name_2/..."
+
+[node name="ButtonDelete" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 32)
+layout_mode = 2
+tooltip_text = "Delete alias"
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_aot6p")
+icon = ExtResource("2_xnk7e")
+icon_alignment = 1
+
+[node name="WarnIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+tooltip_text = "Alias contains sounds that are not found in the library."
+texture = ExtResource("2_vxapm")
+stretch_mode = 3
+
+[node name="Separator" type="HSeparator" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+
+[node name="SettingBorrowWindow" parent="." instance=ExtResource("3_pj5ww")]
+size = Vector2i(55, 80)
+visible = false
+
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_exited"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/HBoxContainerTextEdit/TextEditAliasName" to="." method="_on_setting_changed"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/HBoxContainerTextEdit/TextEditSoundName" to="." method="_on_setting_changed"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/ButtonDelete" to="." method="_on_button_delete_button_up"]

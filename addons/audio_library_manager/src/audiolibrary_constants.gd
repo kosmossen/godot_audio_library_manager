@@ -37,6 +37,14 @@ const TEMPLATE_ENTRY : Dictionary = {
 	}
 }
 
+## Alias entry data template
+const TEMPLATE_ALIAS_ENTRY : Dictionary = {
+	"settings": {
+		"aliasname" : "",
+		"soundnames" : "",
+	}
+}
+
 ## Sound settings template
 const TEMPLATE_SOUND_SETTINGS := {
 	"volume" : {

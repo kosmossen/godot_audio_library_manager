@@ -22,7 +22,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 script = ExtResource("1_kq38j")
-child_parent_control = NodePath("Main/Menu/Tab")
+child_parent_control = [NodePath("Main/Menu/Tab")]
 
 [node name="Main" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -63,7 +63,7 @@ tooltip_text = "Godot Audio Library Manager
 Plugin by kosmossen"
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-text = "v0.2"
+text = "v0.3"
 horizontal_alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="Main"]
@@ -174,8 +174,10 @@ cancel_button_text = "No"
 [connection signal="id_pressed" from="Main/Bar/MenuBar/File" to="Main/Bar/MenuBar" method="_on_file_id_pressed"]
 [connection signal="id_pressed" from="Main/Bar/MenuBar/Audio" to="Main/Bar/MenuBar" method="_on_libraries_id_pressed_libraries"]
 [connection signal="button_up" from="Main/Menu/VBoxContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="children_updated" from="Main/Menu/Tab/PanelBase" to="Main/Menu/Tab/PanelBase" method="_on_children_updated"]
 [connection signal="resized" from="Main/Menu/Tab/PanelBase" to="Main/Menu/Tab/PanelBase" method="_on_resized"]
-[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@23959" to="Main/Menu/Tab/@ScrollContainer@23959" method="_on_resized"]
+[connection signal="children_updated" from="Main/Menu/Tab/@ScrollContainer@18207" to="Main/Menu/Tab/@ScrollContainer@18207" method="_on_children_updated"]
+[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@18207" to="Main/Menu/Tab/@ScrollContainer@18207" method="_on_resized"]
 [connection signal="confirmed" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ExportDialog" to="." method="_on_export_ok"]

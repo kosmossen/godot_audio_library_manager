@@ -35,7 +35,7 @@ var _pause_setting_updates := false
 
 # PRIMARY
 
-### initialize with data
+## initialize with data
 func init_data(filename:String, filetype:String, filepath:String, settings_init:Dictionary={}, set_data:bool=true) -> void:
 	data["metadata"]["filename"] = filename
 	data["metadata"]["filetype"] = filetype

@@ -8,6 +8,8 @@ signal library_resized
 
 ## Library item scene
 const SCENE_LIBRARY_ITEM = preload("res://addons/audio_library_manager/src/panels/panel_entry.tscn")
+## Alias item scene
+const SCENE_ALIAS_ITEM = preload("res://addons/audio_library_manager/src/panels/panel_entry_alias.tscn")
 ## Minimum width below which compact UI mode is activated
 const COMPACT_UI_WIDTH_THRESHOLD := 1000
 
@@ -54,11 +56,17 @@ func get_data(ignore_files:bool=false) -> void:
 	#
 	if not ignore_files:
 		data["files"] = {}
+		data["aliases"] = {}
 		var _data
 		var _index := 0
-		for i in panel_get_children():
+		for i in panel_get_children(child_parent_control[0]):
 			i.get_data()
 			data["files"][i.data["metadata"]["filename"]] = i.data
+			_index += 1
+		for i in panel_get_children(child_parent_control[1]):
+			i.get_data()
+			if i.data["settings"]["aliasname"] and not i.data["settings"]["aliasname"] in data["aliases"]:
+				data["aliases"][i.data["settings"]["aliasname"]] = i.data
 			_index += 1
 
 ## Set data into UI elements
@@ -82,19 +90,35 @@ func play_sample(stream:AudioStream, sound_name:String, poly:int=1, volume:int=0
 	asp.pitch_scale = pitch/100
 	asp.bus = bus
 	asp.play()
-	$Pad/Stack/SamplePlayerPanel.play(title)
+	$Pad/Stack/Tabs/Library/SamplePlayerPanel.play(title)
 	
 ## Stop audio sample
 func stop_sample() -> void:
 	$AudioStreamPlayer.stop()
-	$Pad/Stack/SamplePlayerPanel.stop()
+	$Pad/Stack/Tabs/Library/SamplePlayerPanel.stop()
 	
 ## Limit files list to show files matching search parameters
 func search_files(search_string:String) -> void:
 	var _index = 1
-	for i in panel_get_children():
+	for i in panel_get_children(child_parent_control[0]):
 		if search_string:
 			if search_string.to_lower() in i.data["metadata"]["filename"].to_lower():
+				i.visible = true
+			else:
+				i.visible = false
+		else:
+			i.visible = true
+		# index
+		if i.visible:
+			i.index = _index
+			_index += 1
+			
+## Limit files list to show files matching search parameters
+func search_files_aliases(search_string:String) -> void:
+	var _index = 1
+	for i in panel_get_children(child_parent_control[1]):
+		if search_string:
+			if search_string.to_lower() in i.data["settings"]["aliasname"].to_lower():
 				i.visible = true
 			else:
 				i.visible = false
@@ -131,8 +155,8 @@ func _get_files_recursive(path:String, file_ext_filter:Array[String]=[], files:A
 func reload_files(use_existing_data:bool=false) -> void:
 	get_data(use_existing_data)
 	# clear files
-	for i in panel_get_children():
-		panel_delete_child(i.id)
+	panel_delete_children(child_parent_control[0])
+	panel_delete_children(child_parent_control[1])
 	if subpanels: 
 		subpanels = {}
 	if data:
@@ -150,21 +174,33 @@ func reload_files(use_existing_data:bool=false) -> void:
 					var _item
 					if use_existing_data:
 						if i[0] in data["files"]:
-							_item = panel_create_child(SCENE_LIBRARY_ITEM, i[0]+i[1], data["files"][i[0]], false, false)
+							_item = panel_create_child(child_parent_control[0], SCENE_LIBRARY_ITEM, i[0]+i[1], data["files"][i[0]], false, false)
 							var _init_settings = {}
 							for j in data["files"][i[0]]["settings"]: 
 								if j in plugin.CONSTANTS.TEMPLATE_ENTRY["settings"]:
 									_init_settings[j] = data["files"][i[0]]["settings"][j]
 							_item.init_data(i[0], i[1], i[2], _init_settings)
 						else:
-							_item = panel_create_child(SCENE_LIBRARY_ITEM, i[0]+i[1], plugin.CONSTANTS.TEMPLATE_ENTRY)
+							_item = panel_create_child(child_parent_control[0], SCENE_LIBRARY_ITEM, i[0]+i[1], plugin.CONSTANTS.TEMPLATE_ENTRY)
 							_item.init_data(i[0], i[1], i[2])
 					else:
-						_item = panel_create_child(SCENE_LIBRARY_ITEM, i[0]+i[1], plugin.CONSTANTS.TEMPLATE_ENTRY)
+						_item = panel_create_child(child_parent_control[0], SCENE_LIBRARY_ITEM, i[0]+i[1], plugin.CONSTANTS.TEMPLATE_ENTRY)
 						_item.init_data(i[0], i[1], i[2])
 					_item.get_data()
 					_item.index = _index
 					_item.item_updated.connect(_item_updated)
+					_index += 1
+				# new aliases
+				_index = 1
+				if "aliases" not in data:
+					data["aliases"] = {}
+				for i in data["aliases"]:
+					var _alias
+					_alias = panel_create_child(child_parent_control[1], SCENE_ALIAS_ITEM, i, plugin.CONSTANTS.TEMPLATE_ALIAS_ENTRY)
+					_alias.init_data(data["aliases"][i]["settings"]["aliasname"], data["aliases"][i]["settings"]["soundnames"])
+					_alias.get_data()
+					_alias.index = _index
+					_alias.item_updated.connect(_item_updated)
 					_index += 1
 				
 ## Reload library
@@ -210,8 +246,10 @@ func reload(use_existing_data:bool=false, initial:bool=false) -> void:
 	_status_label.label_settings.set_font_color(status.STATUS_COLOR[status.status_type])
 	_status_label.text = status.status_msg
 	# reapply search
-	var _searchtext = $Pad/Stack/Search.text
+	var _searchtext = $Pad/Stack/Tabs/Library/Search.text
 	if _searchtext: search_files(_searchtext)
+	var _searchtext_aliases = $Pad/Stack/Tabs/Aliases/SearchAliases.text
+	if _searchtext_aliases: search_files_aliases(_searchtext)
 	# signal
 	emit_signal("library_updated")
 
@@ -294,9 +332,13 @@ func _on_reload_button_up() -> void:
 	if initialized:
 		reload(true)
 
-## Search
+## Search (Entries)
 func _on_line_edit_text_changed(new_text) -> void:
 	search_files(new_text)
+	
+## Search (Aliases)
+func _on_search_aliases_text_changed(new_text) -> void:
+	search_files_aliases(new_text)
 
 ## Stop audio sample
 func _on_sample_player_button_stop_button_up():
@@ -304,7 +346,7 @@ func _on_sample_player_button_stop_button_up():
 	
 ## Audio sample done playing
 func _on_audio_stream_player_finished():
-	$Pad/Stack/SamplePlayerPanel.stop()
+	$Pad/Stack/Tabs/Library/SamplePlayerPanel.stop()
 
 ## FileDialog dir selected
 func _on_file_dialog_dir_selected(dir):
@@ -347,3 +389,21 @@ func _on_resized():
 		ui_mode = UI_MODE.COMPACT
 	else:
 		ui_mode = UI_MODE.NORMAL
+
+## New alias
+func _on_button_new_alias_button_up() -> void:
+	var _index: int = 1
+	var _new_alias_string: String = "new_alias_%s"
+	while (_new_alias_string % _index) in data["aliases"]:
+		_index += 1
+	data["aliases"][_new_alias_string % _index] = plugin.CONSTANTS.TEMPLATE_ALIAS_ENTRY.duplicate(true)
+	data["aliases"][_new_alias_string % _index]["settings"]["aliasname"] = _new_alias_string % _index
+	reload(true)
+
+## Clear all aliases (prompt)
+func _on_button_clear_aliases_button_up() -> void:
+	pass # Replace with function body.
+
+## Reload when children are updated to ensure that removals are saved
+func _on_children_updated() -> void:
+	reload(true)
