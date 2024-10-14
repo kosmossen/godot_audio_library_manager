@@ -11,6 +11,3 @@ export_presets.cfg
 
 # Imported translations (automatically generated from CSV files)
 *.translation
-
-# Plugin data
-addons/audio_library_manager/data

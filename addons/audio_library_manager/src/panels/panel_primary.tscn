@@ -63,7 +63,7 @@ tooltip_text = "Godot Audio Library Manager
 Plugin by kosmossen"
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-text = "v0.3"
+text = "v0.2"
 horizontal_alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="Main"]
@@ -117,7 +117,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 0.235294)
 text = "NO LIBRARY SELECTED"
 
 [node name="ImportDialog" type="FileDialog" parent="."]
-title = "Import Andromeda data file"
+title = "Import an Audio Library File"
 initial_position = 2
 size = Vector2i(454, 175)
 ok_button_text = "Open"
@@ -129,7 +129,7 @@ filters = PackedStringArray("*.gdal ; GDAL Files")
 use_native_dialog = true
 
 [node name="ExportDialog" type="FileDialog" parent="."]
-title = "Export Andromeda data file"
+title = "Export an Audio Library File"
 initial_position = 2
 size = Vector2i(454, 175)
 ok_button_text = "Save"
@@ -176,8 +176,8 @@ cancel_button_text = "No"
 [connection signal="button_up" from="Main/Menu/VBoxContainer/Button" to="." method="_on_button_button_up"]
 [connection signal="children_updated" from="Main/Menu/Tab/PanelBase" to="Main/Menu/Tab/PanelBase" method="_on_children_updated"]
 [connection signal="resized" from="Main/Menu/Tab/PanelBase" to="Main/Menu/Tab/PanelBase" method="_on_resized"]
-[connection signal="children_updated" from="Main/Menu/Tab/@ScrollContainer@18925" to="Main/Menu/Tab/@ScrollContainer@18925" method="_on_children_updated"]
-[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@18925" to="Main/Menu/Tab/@ScrollContainer@18925" method="_on_resized"]
+[connection signal="children_updated" from="Main/Menu/Tab/@ScrollContainer@24082" to="Main/Menu/Tab/@ScrollContainer@24082" method="_on_children_updated"]
+[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@24082" to="Main/Menu/Tab/@ScrollContainer@24082" method="_on_resized"]
 [connection signal="confirmed" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ExportDialog" to="." method="_on_export_ok"]

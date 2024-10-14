@@ -1,0 +1,139 @@
+{
+	"data": {
+		"Music": {
+			"aliases": {
+				"music_alias": {
+					"settings": {
+						"aliasname": "music_alias",
+						"soundnames": "music_renegade"
+					}
+				}
+			},
+			"config": {
+				"bus": "Master",
+				"exclusive": false,
+				"path": "res://examples/res/music"
+			},
+			"files": {
+				"music_renegade": {
+					"metadata": {
+						"filename": "music_renegade",
+						"filetype": "ogg",
+						"path": "res://examples/res/music/music_renegade.ogg"
+					},
+					"settings": {
+						"pitch": 1,
+						"poly": 1,
+						"volume": 0
+					}
+				}
+			},
+			"fresh": false,
+			"id": "Music"
+		},
+		"SFX": {
+			"aliases": {
+				"new_alias_1": {
+					"settings": {
+						"aliasname": "new_alias_1",
+						"soundnames": ""
+					}
+				},
+				"new_alias_2": {
+					"settings": {
+						"aliasname": "new_alias_2",
+						"soundnames": ""
+					}
+				},
+				"new_alias_3": {
+					"settings": {
+						"aliasname": "new_alias_3",
+						"soundnames": ""
+					}
+				},
+				"new_alias_4": {
+					"settings": {
+						"aliasname": "new_alias_4",
+						"soundnames": ""
+					}
+				},
+				"new_alias_5": {
+					"settings": {
+						"aliasname": "new_alias_5",
+						"soundnames": ""
+					}
+				},
+				"new_alias_6": {
+					"settings": {
+						"aliasname": "new_alias_6",
+						"soundnames": ""
+					}
+				},
+				"new_alias_7": {
+					"settings": {
+						"aliasname": "new_alias_7",
+						"soundnames": ""
+					}
+				},
+				"new_alias_8": {
+					"settings": {
+						"aliasname": "new_alias_8",
+						"soundnames": ""
+					}
+				},
+				"new_alias_8f": {
+					"settings": {
+						"aliasname": "new_alias_8f",
+						"soundnames": ""
+					}
+				}
+			},
+			"config": {
+				"bus": "Master",
+				"exclusive": false,
+				"path": "res://examples/res/SFX"
+			},
+			"files": {
+				"sfx_click": {
+					"metadata": {
+						"filename": "sfx_click",
+						"filetype": "ogg",
+						"path": "res://examples/res/SFX/sfx_click.ogg"
+					},
+					"settings": {
+						"pitch": 1,
+						"poly": 1,
+						"volume": 0
+					}
+				},
+				"sfx_hurt": {
+					"metadata": {
+						"filename": "sfx_hurt",
+						"filetype": "ogg",
+						"path": "res://examples/res/SFX/sfx_hurt.ogg"
+					},
+					"settings": {
+						"pitch": 1,
+						"poly": 1,
+						"volume": 0
+					}
+				},
+				"sfx_sparkle": {
+					"metadata": {
+						"filename": "sfx_sparkle",
+						"filetype": "ogg",
+						"path": "res://examples/res/SFX/sfx_sparkle.ogg"
+					},
+					"settings": {
+						"pitch": 1,
+						"poly": 1,
+						"volume": 0
+					}
+				}
+			},
+			"fresh": false,
+			"id": "SFX"
+		}
+	},
+	"plugin": "godot_audio_library_manager"
+}

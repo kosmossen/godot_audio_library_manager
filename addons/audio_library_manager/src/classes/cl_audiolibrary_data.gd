@@ -5,8 +5,8 @@ class_name AudioLibraryData extends Resource
 ## The AudioLibraryData class is used to save, load and verify audio library data files.
 
 ## Plugin data path and filename
-const PATH_DATA = "res://.godot/"
-const PATH_DATA_FILE_NAME = "data"
+const PATH_DATA = "res://"
+const PATH_DATA_FILE_NAME = "audio_library"
 const PATH_DATA_EXT = "gdal"
 ## Data source plugin verification string. changing this will break compatibility.
 const PLUGIN_STRING = "godot_audio_library_manager"
