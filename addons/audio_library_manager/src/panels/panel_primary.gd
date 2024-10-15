@@ -17,7 +17,7 @@ const SCENE_LIBRARY := preload("res://addons/audio_library_manager/src/panels/pa
 func _enter_tree() -> void:
 	if Engine.is_editor_hint():
 		# update version text
-		$Main/Bar/Version.text = "v%s" % _get_plugin_version()
+		$Main/Bar/Version.text = "%s" % _get_plugin_version()
 		# pre-cleaning
 		panel_delete_children(child_parent_control[0])
 		$Main/Menu/VBoxContainer/ItemList.clear()

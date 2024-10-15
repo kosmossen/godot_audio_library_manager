@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://mkc3wrjilqti"]
+[gd_scene load_steps=5 format=3 uid="uid://dr7qk4csv7uc5"]
 
-[ext_resource type="PackedScene" uid="uid://b47esjd6eeew7" path="res://addons/audio_library_manager/src/windows/window_base.tscn" id="1_iryrb"]
-[ext_resource type="Script" path="res://addons/audio_library_manager/src/windows/window_rename.gd" id="2_mh00w"]
+[ext_resource type="PackedScene" uid="uid://b47esjd6eeew7" path="res://addons/audio_library_manager/src/windows/window_base.tscn" id="1_1jod8"]
+[ext_resource type="Script" path="res://addons/audio_library_manager/src/windows/window_list.gd" id="2_sqb6t"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_fmk44"]
 device = -1
@@ -10,11 +10,11 @@ keycode = 4194309
 [sub_resource type="Shortcut" id="Shortcut_kf6ik"]
 events = [SubResource("InputEventKey_fmk44")]
 
-[node name="RenameWindow" node_paths=PackedStringArray("initial_focus") instance=ExtResource("1_iryrb")]
-script = ExtResource("2_mh00w")
-taken_names = Array[String]([])
-max_length = 32
-initial_focus = NodePath("Panel/MarginContainer/VBoxContainer/LineEdit")
+[node name="ItemWindow" instance=ExtResource("1_1jod8")]
+size = Vector2i(400, 350)
+script = ExtResource("2_sqb6t")
+list_strings = null
+allow_multiple_select = null
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
 layout_mode = 1
@@ -36,14 +36,16 @@ theme_override_constants/separation = 8
 [node name="Query" type="Label" parent="Panel/MarginContainer/VBoxContainer" index="0"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Enter new name:"
+text = "Pick an option:"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+[node name="ItemList" type="ItemList" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(0, 230)
 layout_mode = 2
 
 [node name="StatusBG" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer" index="2"]
+visible = false
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 color = Color(0, 0, 0, 0.27451)
@@ -85,6 +87,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Cancel"
 
-[connection signal="text_changed" from="Panel/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="item_selected" from="Panel/MarginContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="multi_selected" from="Panel/MarginContainer/VBoxContainer/ItemList" to="." method="_on_item_list_multi_selected"]
 [connection signal="button_up" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Accept" to="." method="_on_accept_button_up"]
 [connection signal="button_up" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_up"]

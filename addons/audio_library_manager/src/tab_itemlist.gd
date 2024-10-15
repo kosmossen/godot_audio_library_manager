@@ -5,8 +5,6 @@ extends ItemList
 @export var index_offset : int = 1
 @export_subgroup("Icons")
 
-const ICON_NULL := preload("res://addons/audio_library_manager/res/null.svg")
-
 func _enter_tree() -> void:
 	if Engine.is_editor_hint():
 		target_tabcontainer.current_tab = 0

@@ -253,6 +253,11 @@ func reload(use_existing_data:bool=false, initial:bool=false) -> void:
 	# signal
 	emit_signal("library_updated")
 
+func delete_alias(id:String) -> void:
+	panel_delete_child(child_parent_control[1], id)
+	data["aliases"].erase(id)
+	reload(true)
+
 # STATUS
 
 ## Add to status stack
@@ -303,7 +308,7 @@ func _item_updated(data:Dictionary) -> void:
 
 ## Rename library
 func _on_rename_button_up() -> void:
-	$RenameWindow.taken_names = parent_panel.panel_get_ids(true)
+	$RenameWindow.taken_names = parent_panel.panel_get_ids(parent_panel.child_parent_control[0], true)
 	$RenameWindow.show()
 	$Pad/Stack/PlateMargin/Plate/Titlebar/Rename.release_focus()
 
@@ -390,20 +395,32 @@ func _on_resized():
 	else:
 		ui_mode = UI_MODE.NORMAL
 
-## New alias
+## New alias (prompt)
 func _on_button_new_alias_button_up() -> void:
-	var _index: int = 1
-	var _new_alias_string: String = "new_alias_%s"
-	while (_new_alias_string % _index) in data["aliases"]:
-		_index += 1
-	data["aliases"][_new_alias_string % _index] = plugin.CONSTANTS.TEMPLATE_ALIAS_ENTRY.duplicate(true)
-	data["aliases"][_new_alias_string % _index]["settings"]["aliasname"] = _new_alias_string % _index
-	reload(true)
+	$NewAliasWindow.taken_names.clear()
+	$NewAliasWindow.taken_names.assign(data["aliases"].keys())
+	$NewAliasWindow.show()
+	$Pad/Stack/Tabs/Aliases/HBoxContainer/ButtonNewAlias.release_focus()
 
 ## Clear all aliases (prompt)
 func _on_button_clear_aliases_button_up() -> void:
-	pass # Replace with function body.
+	$ClearAliasesDialog.show()
+	$Pad/Stack/Tabs/Aliases/HBoxContainer/ButtonClearAliases.release_focus()
 
 ## Reload when children are updated to ensure that removals are saved
 func _on_children_updated() -> void:
+	reload(true)
+
+## Create new alias (prompt accepted)
+func _on_new_alias_window_accept_pressed(entered_name: String) -> void:
+	$NewAliasWindow.hide()
+	var _new_alias_string: String = entered_name
+	data["aliases"][_new_alias_string] = plugin.CONSTANTS.TEMPLATE_ALIAS_ENTRY.duplicate(true)
+	data["aliases"][_new_alias_string]["settings"]["aliasname"] = _new_alias_string
+	reload(true)
+
+## Clear aliases (prompt accepted)
+func _on_clear_aliases_dialog_confirmed() -> void:
+	$ClearAliasesDialog.hide()
+	data["aliases"].clear()
 	reload(true)

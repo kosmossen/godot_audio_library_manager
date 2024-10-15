@@ -21,6 +21,8 @@ func _enter_tree() -> void:
 		get_editor_interface().get_editor_main_screen().add_child(panel_main_instance)
 		# hide main panel
 		_make_visible(false)
+		# init message
+		print(CONSTANTS.INIT_MESSAGE)
 
 func _exit_tree() -> void:
 	if panel_main_instance:

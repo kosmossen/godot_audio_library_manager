@@ -2,7 +2,7 @@ Next: ![JSON Data](json_data.md)
 
 ## Getting Started
 
-*Guide for plugin version 0.2*
+*Guide for plugin version 0.3*
 
 ### Initial setup
 
@@ -34,11 +34,11 @@ Using this reference, we can now use the in-built functions to play global and l
 
 - `audiolibrary.play_sound(library_name:String, sound_name:String)`
   
-Play a global sound with name `sound_name` from library `library`
+Play a global sound with name `sound_name` from library `library_name`
 
 - `audiolibrary.stop_sound(library_name:String, sound_name:String)`
   
-Stop a global sound with name `sound_name` from library `library`
+Stop a global sound with name `sound_name` from library `library_name`
 
 - `audiolibrary.stop_all_sounds(library_name:String)`
   
@@ -86,7 +86,7 @@ If you want to go even further, you can utilize the `AudioLibraryData` class to 
   
 - `data_save(data:Dictionary, full_overwrite:bool=true, bypass_verification:bool=false)`  
 
-By default, the data.json is stored in `res://addons/audio_library_manager/data/`
+By default, the audio library file (audio_library.gdal) is stored in the root of the project.
 
 
 Next: ![JSON Data](json_data.md)

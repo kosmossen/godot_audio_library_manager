@@ -1,6 +1,15 @@
 extends Resource
 ## Audio library manager constants
 
+const INIT_MESSAGE : String = "Audio Library Manager initialized."
+
+# Preload resources
+
+const RES_NULL = preload("res://addons/audio_library_manager/res/null.svg")
+const RES_OK = preload("res://addons/audio_library_manager/res/ok.svg")
+const RES_WARN = preload("res://addons/audio_library_manager/res/warn.svg")
+const RES_ERR = preload("res://addons/audio_library_manager/res/error.svg")
+
 # Formats
 
 const VALID_FORMATS : Array[String] = [
@@ -20,7 +29,8 @@ const TEMPLATE_LIBRARY : Dictionary = {
 		"bus" : "",
 		"exclusive" : false,
 	},
-	"files": {}
+	"files": {},
+	"aliases": {}
 }
 
 ## Entry data template
@@ -39,6 +49,7 @@ const TEMPLATE_ENTRY : Dictionary = {
 
 ## Alias entry data template
 const TEMPLATE_ALIAS_ENTRY : Dictionary = {
+	"valid": true,
 	"settings": {
 		"aliasname" : "",
 		"soundnames" : "",

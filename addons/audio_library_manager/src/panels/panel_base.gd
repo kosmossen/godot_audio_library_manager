@@ -4,7 +4,6 @@ extends Control
 signal id_set(parent:Control, old_id:String, new_id:String)
 signal ui_mode_changed(new_mode:UI_MODE)
 signal children_updated()
-signal delete_requested(parent:Node, id:String)
 
 enum UI_MODE {
 	NORMAL,
@@ -88,8 +87,6 @@ func panel_create_child(parent_control:Control, child_node:PackedScene, id:Strin
 				subpanels[parent_control] = {}
 			if "data" in _child and get_data_ref_from_child:
 				subpanels[parent_control][id] = _child.data
-			_child.id_set.connect(_on_child_id_set)
-			_child.delete_requested.connect(_on_child_delete_requested)
 			ui_mode_changed.connect(_child._on_parent_ui_mode_changed)
 			#emit_signal("children_updated")
 			return _child
@@ -172,10 +169,6 @@ func _on_child_id_set(parent:Control, old_id:String, new_id:String) -> void:
 	if old_id in subpanels[parent]:
 		subpanels[parent][new_id] = subpanels[parent][old_id]
 		subpanels[parent].erase(old_id)
-
-## Child requested deletion
-func _on_child_delete_requested(parent:Control, id:String) -> void:
-	panel_delete_child(parent, id)
 
 func _on_parent_ui_mode_changed(new_mode:UI_MODE) -> void:
 	ui_mode = new_mode

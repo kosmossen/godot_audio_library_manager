@@ -1,17 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://c251l218wtv28"]
+[gd_scene load_steps=11 format=3 uid="uid://c251l218wtv28"]
 
 [ext_resource type="Script" path="res://addons/audio_library_manager/src/panels/panel_entry_alias.gd" id="1_x246t"]
-[ext_resource type="Texture2D" uid="uid://bsiqtyjmnwvg8" path="res://addons/audio_library_manager/res/NodeWarning.svg" id="2_vxapm"]
-[ext_resource type="Texture2D" uid="uid://btjdnp7xeqjt4" path="res://addons/audio_library_manager/res/Remove.svg" id="2_xnk7e"]
+[ext_resource type="Texture2D" uid="uid://ddiepqxq42keq" path="res://addons/audio_library_manager/res/edit.svg" id="2_qv5nc"]
+[ext_resource type="Texture2D" uid="uid://dqog8f6gk52dh" path="res://addons/audio_library_manager/res/add.svg" id="2_v7mgh"]
+[ext_resource type="Texture2D" uid="uid://bsiqtyjmnwvg8" path="res://addons/audio_library_manager/res/warn.svg" id="2_vxapm"]
+[ext_resource type="Texture2D" uid="uid://btjdnp7xeqjt4" path="res://addons/audio_library_manager/res/remove.svg" id="2_xnk7e"]
 [ext_resource type="PackedScene" uid="uid://bt47fp0sjcxrv" path="res://addons/audio_library_manager/src/windows/window_container.tscn" id="3_pj5ww"]
+[ext_resource type="PackedScene" uid="uid://mkc3wrjilqti" path="res://addons/audio_library_manager/src/windows/window_rename.tscn" id="6_4q73n"]
+[ext_resource type="PackedScene" uid="uid://dr7qk4csv7uc5" path="res://addons/audio_library_manager/src/windows/window_list.tscn" id="8_c0y4g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_afry5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aot6p"]
 
-[node name="AliasEntryPanel" type="MarginContainer" node_paths=PackedStringArray("ui_text_edit_alias", "ui_text_edit_sound", "ui_warn_icon") groups=["AudioLibraryPanel"]]
+[node name="AliasEntryPanel" type="MarginContainer" node_paths=PackedStringArray("ui_label_alias", "ui_text_edit_sound", "ui_warn_icon") groups=["AudioLibraryPanel"]]
 custom_minimum_size = Vector2(100, 30)
 size_flags_horizontal = 3
 script = ExtResource("1_x246t")
-ui_text_edit_alias = NodePath("VBoxContainer/HBoxContainer/HBoxContainerTextEdit/TextEditAliasName")
+ui_label_alias = NodePath("VBoxContainer/HBoxContainer/HBoxContainerTextEdit/LabelAliasName")
 ui_text_edit_sound = NodePath("VBoxContainer/HBoxContainer/HBoxContainerTextEdit/TextEditSoundName")
 ui_warn_icon = NodePath("VBoxContainer/HBoxContainer/WarnIcon")
 
@@ -25,6 +31,11 @@ color = Color(1, 1, 1, 0.0392157)
 visible = false
 layout_mode = 2
 color = Color(0, 0, 0, 0.156863)
+
+[node name="Err" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+color = Color(0.670588, 0, 0, 0.0823529)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -41,34 +52,49 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
+[node name="Icon_L" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
 layout_mode = 2
-text = " - "
+expand_mode = 2
 
-[node name="TextEditAliasName" type="LineEdit" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
-custom_minimum_size = Vector2(300, 0)
+[node name="LabelAliasName" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 1
-theme_override_font_sizes/font_size = 13
-placeholder_text = "alias_name"
+tooltip_text = "Alias Name"
+text = " - "
 
 [node name="LabelMid" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
 text = ":"
+
+[node name="ButtonAddFromLibrary" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
+custom_minimum_size = Vector2(30, 32)
+layout_mode = 2
+tooltip_text = "Add Sounds From Library.."
+theme_override_styles/focus = SubResource("StyleBoxEmpty_afry5")
+icon = ExtResource("2_v7mgh")
+icon_alignment = 1
 
 [node name="TextEditSoundName" type="LineEdit" parent="VBoxContainer/HBoxContainer/HBoxContainerTextEdit"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Alias Sounds"
 mouse_filter = 1
 theme_override_font_sizes/font_size = 13
 placeholder_text = "sound_name_1/sound_name_2/..."
 
+[node name="ButtonRename" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 32)
+layout_mode = 2
+tooltip_text = "Rename Alias.."
+icon = ExtResource("2_qv5nc")
+icon_alignment = 1
+
 [node name="ButtonDelete" type="Button" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 32)
 layout_mode = 2
-tooltip_text = "Delete alias"
+tooltip_text = "Delete Alias"
 mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_aot6p")
 icon = ExtResource("2_xnk7e")
@@ -77,7 +103,7 @@ icon_alignment = 1
 [node name="WarnIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-tooltip_text = "Alias contains sounds that are not found in the library."
+tooltip_text = "Generic warning."
 texture = ExtResource("2_vxapm")
 stretch_mode = 3
 
@@ -90,8 +116,19 @@ mouse_filter = 1
 size = Vector2i(55, 80)
 visible = false
 
+[node name="RenameWindow" parent="." instance=ExtResource("6_4q73n")]
+title = "Rename Alias"
+
+[node name="ItemWindow" parent="." instance=ExtResource("8_c0y4g")]
+title = "Add Sounds from Library"
+list_strings = Array[String](["sfx_click", "sfx_hurt", "sfx_sparkle"])
+allow_multiple_select = true
+
 [connection signal="mouse_entered" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_exited"]
-[connection signal="text_changed" from="VBoxContainer/HBoxContainer/HBoxContainerTextEdit/TextEditAliasName" to="." method="_on_setting_changed"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/HBoxContainerTextEdit/ButtonAddFromLibrary" to="." method="_on_button_add_from_library_button_up"]
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/HBoxContainerTextEdit/TextEditSoundName" to="." method="_on_setting_changed"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/ButtonRename" to="." method="_on_button_rename_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/ButtonDelete" to="." method="_on_button_delete_button_up"]
+[connection signal="accept_pressed" from="RenameWindow" to="." method="_on_rename_window_accept_pressed"]
+[connection signal="accept_pressed" from="ItemWindow" to="." method="_on_item_window_accept_pressed"]
