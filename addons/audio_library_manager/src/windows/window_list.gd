@@ -8,11 +8,12 @@ signal accept_pressed(selected_items:Array[String])
 @export var list_strings : Array[String]
 @export var allow_multiple_select: bool = false:
 	set(value):
-		var _itemlist = $Panel/MarginContainer/VBoxContainer/ItemList
-		if value:
-			_itemlist.select_mode = ItemList.SELECT_MULTI
-		else:
-			_itemlist.select_mode = ItemList.SELECT_SINGLE
+		var _itemlist: Control = get_node_or_null("Panel/MarginContainer/VBoxContainer/ItemList")
+		if _itemlist:
+			if value:
+				_itemlist.select_mode = ItemList.SELECT_MULTI
+			else:
+				_itemlist.select_mode = ItemList.SELECT_SINGLE
 		allow_multiple_select = value
 
 ################################################################################
