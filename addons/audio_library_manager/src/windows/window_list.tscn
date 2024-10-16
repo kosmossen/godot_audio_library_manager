@@ -13,8 +13,8 @@ events = [SubResource("InputEventKey_fmk44")]
 [node name="ItemWindow" instance=ExtResource("1_1jod8")]
 size = Vector2i(400, 350)
 script = ExtResource("2_sqb6t")
-list_strings = null
-allow_multiple_select = null
+list_strings = Array[String]([])
+allow_multiple_select = false
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
 layout_mode = 1

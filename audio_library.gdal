@@ -32,7 +32,8 @@
 					"settings": {
 						"aliasname": "random",
 						"soundnames": "sfx_click/sfx_hurt/sfx_sparkle"
-					}
+					},
+					"valid": true
 				}
 			},
 			"config": {

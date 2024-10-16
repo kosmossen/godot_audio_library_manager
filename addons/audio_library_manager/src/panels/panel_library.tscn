@@ -1,11 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://cbkev2ph47mfe"]
+[gd_scene load_steps=27 format=3 uid="uid://cbkev2ph47mfe"]
 
 [ext_resource type="Script" path="res://addons/audio_library_manager/src/panels/panel_library.gd" id="1_nnkqu"]
 [ext_resource type="Script" path="res://addons/audio_library_manager/src/classes/cl_audiolibrary_status.gd" id="2_tckl7"]
 [ext_resource type="Texture2D" uid="uid://bbbee6iyamack" path="res://addons/audio_library_manager/res/folder.svg" id="3_7sutm"]
 [ext_resource type="PackedScene" uid="uid://mkc3wrjilqti" path="res://addons/audio_library_manager/src/windows/window_rename.tscn" id="3_18p1c"]
+[ext_resource type="Texture2D" uid="uid://ceulyhupc8dti" path="res://addons/audio_library_manager/res/reload.svg" id="3_gjhcr"]
 [ext_resource type="Texture2D" uid="uid://m4eii25svarl" path="res://addons/audio_library_manager/res/search.svg" id="3_lxxxx"]
 [ext_resource type="Script" path="res://addons/audio_library_manager/src/audiolibrary_optionsbutton.gd" id="3_wjxq8"]
+[ext_resource type="Texture2D" uid="uid://ddiepqxq42keq" path="res://addons/audio_library_manager/res/edit.svg" id="4_2h6jk"]
 [ext_resource type="Script" path="res://addons/audio_library_manager/src/audiolibrary_sampleplayerpanel.gd" id="4_xdqpu"]
 [ext_resource type="PackedScene" uid="uid://b3y1xbrtqc21t" path="res://addons/audio_library_manager/src/windows/window_info.tscn" id="7_3o8m1"]
 [ext_resource type="Texture2D" uid="uid://bpaf30f6puqok" path="res://addons/audio_library_manager/res/new.svg" id="7_67s5k"]
@@ -112,11 +114,10 @@ theme_override_constants/separation = 10
 [node name="Reload" type="Button" parent="Pad/Stack/PlateMargin/Plate/Titlebar"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-theme_override_colors/font_focus_color = Color(0.733333, 0.635294, 0.929412, 1)
-theme_override_colors/font_color = Color(0.733333, 0.635294, 0.929412, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_yxpt2")
 text = "Reload
 "
+icon = ExtResource("3_gjhcr")
 
 [node name="Rename" type="Button" parent="Pad/Stack/PlateMargin/Plate/Titlebar"]
 custom_minimum_size = Vector2(150, 0)
@@ -126,16 +127,16 @@ theme_override_colors/font_focus_color = Color(0.870588, 0.870588, 0.870588, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_m2lu5")
 shortcut_in_tooltip = false
 text = "Rename"
+icon = ExtResource("4_2h6jk")
 
 [node name="Delete" type="Button" parent="Pad/Stack/PlateMargin/Plate/Titlebar"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 8.6
-theme_override_colors/font_focus_color = Color(0.984314, 0.694118, 0.541176, 1)
-theme_override_colors/font_color = Color(0.984314, 0.694118, 0.541176, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_m2lu5")
 text = "Delete
 "
+icon = ExtResource("8_fhmv6")
 
 [node name="Title" type="Label" parent="Pad/Stack/PlateMargin/Plate/Titlebar"]
 layout_mode = 2

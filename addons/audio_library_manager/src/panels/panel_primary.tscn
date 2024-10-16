@@ -63,7 +63,7 @@ tooltip_text = "Godot Audio Library Manager
 Plugin by kosmossen"
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-text = "v0.2"
+text = "0.2"
 horizontal_alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="Main"]
@@ -94,8 +94,9 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1so65")
-item_count = 1
-item_0/text = "Library"
+item_count = 2
+item_0/text = "Music"
+item_1/text = "SFX"
 script = ExtResource("3_ncteu")
 target_tabcontainer = NodePath("../../Tab")
 
@@ -175,6 +176,8 @@ cancel_button_text = "No"
 [connection signal="button_up" from="Main/Menu/VBoxContainer/Button" to="." method="_on_button_button_up"]
 [connection signal="children_updated" from="Main/Menu/Tab/PanelBase" to="Main/Menu/Tab/PanelBase" method="_on_children_updated"]
 [connection signal="resized" from="Main/Menu/Tab/PanelBase" to="Main/Menu/Tab/PanelBase" method="_on_resized"]
+[connection signal="children_updated" from="Main/Menu/Tab/@ScrollContainer@18437" to="Main/Menu/Tab/@ScrollContainer@18437" method="_on_children_updated"]
+[connection signal="resized" from="Main/Menu/Tab/@ScrollContainer@18437" to="Main/Menu/Tab/@ScrollContainer@18437" method="_on_resized"]
 [connection signal="confirmed" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ImportDialog" to="." method="_on_import_ok"]
 [connection signal="file_selected" from="ExportDialog" to="." method="_on_export_ok"]
