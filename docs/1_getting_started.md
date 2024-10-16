@@ -1,12 +1,11 @@
-Next: ![JSON Data](json_data.md)
 
-## Getting Started
+## 1. Getting Started
 
 *Guide for plugin version 0.3*
 
 ### Initial setup
 
-Once you have installed the plugin, you may need to set it to active first. Go to **Project -> Project Settings -> Plugins** and check the **Enable** checkbox for the *Audio Library Manager* plugin.
+Once you have installed the plugin, you will need to activate it first. Go to **Project -> Project Settings -> Plugins** and check the **Enable** checkbox for the *Audio Library Manager* plugin.
 After you have done this, a new tab should appear at the top of the editor titled **Audio**. This is where the interface for the Audio Library Manager is located.
 
 ![Getting Started](getting_started_1.png)
@@ -89,4 +88,4 @@ If you want to go even further, you can utilize the `AudioLibraryData` class to 
 By default, the audio library file (audio_library.gdal) is stored in the root of the project.
 
 
-Next: ![JSON Data](json_data.md)
+Next: ![JSON Data](2_json_data.md)

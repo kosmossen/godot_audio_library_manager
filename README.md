@@ -8,9 +8,9 @@ The plugin can be installed by ![downloading a copy from this github repo](https
 
 ## Documentation
 
-![Getting Started](docs/getting_started.md)
+![1. Getting Started](docs/1_getting_started.md)
 
-![JSON Data](docs/json_data.md)
+![2. JSON Data](docs/2_json_data.md)
 
 ## Screenshots
 
