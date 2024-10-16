@@ -99,7 +99,7 @@ func _on_button_rename_button_up() -> void:
 	$RenameWindow.taken_names.assign(parent_panel.data["aliases"].keys())
 	$VBoxContainer/HBoxContainer/ButtonRename.release_focus()
 
-## Rename dialog accepted
+## Rename prompt accepted
 func _on_rename_window_accept_pressed(entered_name: String) -> void:
 	$RenameWindow.hide()
 	data["settings"]["aliasname"] = entered_name

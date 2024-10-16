@@ -305,6 +305,7 @@ func verify_dir(path:String) -> bool:
 func _item_updated(data:Dictionary) -> void:
 	get_data()
 	emit_signal("library_updated")
+	reload(true)
 
 ## Rename library
 func _on_rename_button_up() -> void:
