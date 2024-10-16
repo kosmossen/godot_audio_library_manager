@@ -58,21 +58,20 @@ func verify_sounds() -> void:
 			if i not in parent_panel.data["files"]:
 				_invalid_sounds.append(i)
 	if _sounds == [""]:
-		#data["valid"] = true
+		data["valid"] = true
 		$Err.hide()
 		$VBoxContainer/HBoxContainer/WarnIcon.texture = plugin.CONSTANTS.RES_NULL
 		$VBoxContainer/HBoxContainer/WarnIcon.tooltip_text = "Alias is empty."
 	elif _invalid_sounds:
-		#data["valid"] = false
+		data["valid"] = false
 		$Err.show()
 		$VBoxContainer/HBoxContainer/WarnIcon.texture = plugin.CONSTANTS.RES_ERR
 		$VBoxContainer/HBoxContainer/WarnIcon.tooltip_text = str("Alias contains sounds that are not found in the library: ", _invalid_sounds)
 	else:
-		#data["valid"] = true
+		data["valid"] = true
 		$Err.hide()
 		$VBoxContainer/HBoxContainer/WarnIcon.texture = plugin.CONSTANTS.RES_OK
 		$VBoxContainer/HBoxContainer/WarnIcon.tooltip_text = "Alias is valid."
-	#emit_signal("item_updated", data)
 		
 # SIGNALS
 

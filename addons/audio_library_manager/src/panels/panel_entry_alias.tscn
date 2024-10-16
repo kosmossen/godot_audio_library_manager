@@ -121,7 +121,7 @@ title = "Rename Alias"
 
 [node name="ItemWindow" parent="." instance=ExtResource("8_c0y4g")]
 title = "Add Sounds from Library"
-list_strings = Array[String](["sfx_click", "sfx_hurt", "sfx_sparkle"])
+list_strings = Array[String](["music_renegade"])
 allow_multiple_select = true
 
 [connection signal="mouse_entered" from="VBoxContainer/HBoxContainer" to="." method="_on_h_box_container_mouse_entered"]

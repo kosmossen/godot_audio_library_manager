@@ -239,11 +239,12 @@ func play_sound(library_name:String, sound_name:String) -> Error:
 		if sound_name in _data[library_name]["aliases"]:
 			var _alias_sounds_raw = _data[library_name]["aliases"][sound_name]["settings"]["soundnames"]
 			if _alias_sounds_raw:
-				#if not _data[library_name]["aliases"]["valid"]:
-				#	printerr("Attempted to play sound through an invalid alias")
-				#else:
-				var _alias_sounds = _alias_sounds_raw.split("/")
-				target_sound = _alias_sounds[randi_range(0,_alias_sounds.size()-1)]
+				if not _data[library_name]["aliases"][sound_name]["valid"]:
+					push_error("Attempted to play sound through an invalid alias '%s' in library '%s'." % [sound_name, library_name])
+					return ERR_INVALID_DATA
+				else:
+					var _alias_sounds = _alias_sounds_raw.split("/")
+					target_sound = _alias_sounds[randi_range(0,_alias_sounds.size()-1)]
 		var _asp = _get_asp(library_name, target_sound)
 		if _asp:
 			if _asp.get_parent().get_meta("config")["exclusive"]:
