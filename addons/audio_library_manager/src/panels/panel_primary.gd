@@ -59,7 +59,7 @@ func new_library(id:String="Library", select_new:bool=false) -> void:
 	
 ## Safely rename a library
 func rename_library(old_id:String, new_id:String) -> void:
-	if old_id in panel_get_ids(child_parent_control[0]):
+	if old_id in subpanels[child_parent_control[0]]:
 		subpanels[child_parent_control[0]][new_id] = subpanels[child_parent_control[0]][old_id].duplicate(true)
 		subpanels[child_parent_control[0]].erase(old_id)
 	
