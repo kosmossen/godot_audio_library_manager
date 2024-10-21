@@ -1,5 +1,11 @@
 ### - v0.3.0
 
+##### FIXED
+
+* Fixed bug causing dictionary keys of libraries not being set properly in data, leading to odd behaviour.
+
+### - v0.3.0
+
 ##### Features
 * New 'Alias' feature
 	* Found under a new tab in every library
