@@ -4,7 +4,7 @@ The **Audio Library Manager** is a plugin for the Godot Engine. Its purpose is t
 
 ## Installation
 
-The plugin can be installed by ![downloading a copy from this github repo](https://github.com/kosmossen/godot_audio_library_manager/releases/latest/download/godot_audio_library_manager.zip) and moving the unzipped **audio_library_manager** directory to the **addons** directory in your Godot project directory. If you don't already have an **addons** directory in your Godot project's directory root, create one there first.
+The plugin can be installed by ![downloading a copy from this github repo](https://github.com/kosmossen/godot_audio_library_manager/releases/latest/download/audio_library_manager.zip) and moving the unzipped **audio_library_manager** directory to the **addons** directory in your Godot project directory. If you don't already have an **addons** directory in your Godot project's directory root, create one there first.
 
 ## Documentation
 
